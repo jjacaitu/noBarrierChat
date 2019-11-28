@@ -8,10 +8,7 @@ function translate(text,sender,reciever,nickname) {
 
     firebase.database().ref(`${reciever}/settings/language`).once("value").then((snapshot)=>{
         
-        const language = snapshot.val();
-        
-        console.log(language,"language here");
-        
+        const language = snapshot.val();       
 
         axios({
             method:"get",

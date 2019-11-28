@@ -41,6 +41,9 @@ class SignUp extends Component{
                 
             }
 
+            console.log(data,"here");
+            console.log("user",result.user.uid);
+
             firebase.database().ref(`${result.user.uid}`).update(data);
 
             result.user.sendEmailVerification().then(function () {
