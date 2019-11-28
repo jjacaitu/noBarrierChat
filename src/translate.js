@@ -8,7 +8,7 @@ function translate(text,sender,reciever,nickname) {
     firebase.database().ref(`${reciever}/settings/language`).once("value").then((snapshot)=>{
         
         const language = snapshot.val();
-        console.log(snapshot.val());
+        console.log(snapshot.val(), "here");
         axios({
             method:"get",
             url: "https://translate.yandex.net/api/v1.5/tr.json/translate",
