@@ -20,3 +20,16 @@
 .App-link {
   color: #09d3ac;
 }
+
+.recentMessages {
+  border: solid rgb(22, 0, 102) 4px;
+  width: 50%;
+  height: 60vh;
+  background-color: lightblue;
+}
+
+textarea {
+  width: 50%;
+  border: solid 4px rgb(22, 0, 102);
+  
+}
