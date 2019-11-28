@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/noBarrierChat/static/css/main.a00a0cfc.chunk.css",
-    "main.js": "/noBarrierChat/static/js/main.ede51c2e.chunk.js",
-    "main.js.map": "/noBarrierChat/static/js/main.ede51c2e.chunk.js.map",
+    "main.js": "/noBarrierChat/static/js/main.13cd9fad.chunk.js",
+    "main.js.map": "/noBarrierChat/static/js/main.13cd9fad.chunk.js.map",
     "runtime-main.js": "/noBarrierChat/static/js/runtime-main.ccc2d64f.js",
     "runtime-main.js.map": "/noBarrierChat/static/js/runtime-main.ccc2d64f.js.map",
     "static/js/2.2cc8fe7b.chunk.js": "/noBarrierChat/static/js/2.2cc8fe7b.chunk.js",
     "static/js/2.2cc8fe7b.chunk.js.map": "/noBarrierChat/static/js/2.2cc8fe7b.chunk.js.map",
     "index.html": "/noBarrierChat/index.html",
-    "precache-manifest.be191b5e88d9e3e3b631bc57e685019b.js": "/noBarrierChat/precache-manifest.be191b5e88d9e3e3b631bc57e685019b.js",
+    "precache-manifest.80c4fcb59995931a44f71e3dd40de020.js": "/noBarrierChat/precache-manifest.80c4fcb59995931a44f71e3dd40de020.js",
     "service-worker.js": "/noBarrierChat/service-worker.js",
     "static/css/main.a00a0cfc.chunk.css.map": "/noBarrierChat/static/css/main.a00a0cfc.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.ccc2d64f.js",
     "static/js/2.2cc8fe7b.chunk.js",
     "static/css/main.a00a0cfc.chunk.css",
-    "static/js/main.ede51c2e.chunk.js"
+    "static/js/main.13cd9fad.chunk.js"
   ]
 }
