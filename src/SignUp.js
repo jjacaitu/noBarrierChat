@@ -12,16 +12,20 @@ class SignUp extends Component{
             email: "",
             password: "",
             name: "",
-            language: ""
+            language: "en",
+            signedUp:false
         }
     }
 
     getLanguage = (event) => {
         console.log(event.target.value);
         this.setState({
-            language: event.target.value
+            language: event.target.value,
+            
         })
     }
+
+    
 
     createUser = (event) => {
         event.preventDefault();

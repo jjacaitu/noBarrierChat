@@ -3,13 +3,6 @@ import React, { Component } from "react";
 import axios from "axios";
 
 
-
-
-
-
-
-
-
 class LanguageSelector extends Component {
 
     constructor() {
@@ -68,7 +61,7 @@ class LanguageSelector extends Component {
             <label htmlFor="language">Select your language</label>
                 <select name="language" id="language" onChange={this.props.function} required>
                 {this.state.languages.map((language) => {
-                    return <option id={language.name} value={language.code}>{language.name}</option>
+                return <option id={language.name} value={language.code} selected={language.name==="English"?"selected":""}>{language.name} </option>
                 })}
             </select>
             </div>

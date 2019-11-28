@@ -12,7 +12,7 @@ class GuestSignUp extends Component {
             email: "",
             password: "",
             name: "",
-            language: "",
+            language: "en",
             userId: ""
         }
     }

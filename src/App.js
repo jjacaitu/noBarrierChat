@@ -5,6 +5,8 @@ import ChatPage from "./ChatPage";
 import SignInPage from "./SignInPage";
 import SignUp from './SignUp';
 import GuestSignUp from './GuestSignIn';
+import AlertMessage from "./AlertMessage";
+import Header from "./Header";
 
 
 
@@ -18,7 +20,8 @@ class App extends Component {
       userEmail: null,
       name: null,
       language: null,
-      verified: null
+      verified: null,
+      alert: false
     }
   }
 
@@ -37,7 +40,10 @@ class App extends Component {
           language: ""
         })
         
-
+      }else if(user && !user.emailVerified && user.email){
+        this.setState({
+          alert: true
+        })
         // In case the user sign in as guest
       } else if (user && user.email === null) {
         const guestNumberData = firebase.database().ref("/generalConfig");
@@ -52,10 +58,13 @@ class App extends Component {
 
           guestNumberData.update({
             guestNumber: snapshot.val().guestNumber + 1
-          });           
+          });
           
         });
         
+        
+
+
       } else {
         // console.log(user);
         this.setState({
@@ -77,12 +86,18 @@ class App extends Component {
     return (
       
       <div>
+        <Header/>
         {this.state.signedIn
           ?
           
           <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language}/>
           :
           <div>
+            {this.state.alert
+              ?
+              <AlertMessage />
+              :
+          ""}
             <GuestSignUp/>
             <SignUp function={this.getLanguageFromSignUp} />
             <SignInPage />

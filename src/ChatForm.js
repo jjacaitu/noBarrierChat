@@ -18,7 +18,7 @@ class ChatForm extends Component {
 
         const dbRef = firebase.database().ref(`${this.props.sender}/chats/${this.props.reciever}/messages`);
         dbRef.push(this.state.text);
-        console.log(this.state.text,this.props.sender,this.props.reciever);
+        
         translate(this.state.text,this.props.sender,this.props.reciever,this.props.nickname);
     }
 
