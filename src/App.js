@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import firebase from "./firebase";
+import axios from "axios";
 import ChatPage from "./ChatPage";
 import SignInPage from "./SignInPage";
 import SignUp from './SignUp';
@@ -8,6 +9,7 @@ import GuestSignUp from './GuestSignIn';
 import AlertMessage from "./AlertMessage";
 import Header from "./Header";
 import Footer from "./Footer";
+import SettingsPage from "./SettingsPage";
 
 
 
@@ -24,7 +26,9 @@ class App extends Component {
       verified: null,
       alert: false,
       optionSelected: "signIn",
-      friendsVisible: false
+      friendsVisible: false,
+      languagesList: ["english"],
+      settingsStatus: false
     }
   }
 
@@ -76,9 +80,45 @@ class App extends Component {
         })
       }
     })
+
+    
+    axios({
+      method: "get",
+      url: "https://translate.yandex.net/api/v1.5/tr.json/getLangs",
+      responseType: "json",
+      params: {
+        key: "trnsl.1.1.20191120T174117Z.30abf07a083257c3.606e1a38fc565562205063e541cb970657ab2600",
+        ui: "en"
+      }
+    }).then((data) => {
+      
+      const languageObject = data.data.langs;
+      let languagesList = [];
+      let codeLangs = [];
+      for (let lang in languageObject) {
+        languagesList.push({
+          name: languageObject[lang],
+          code: lang
+        })
+
+      }
+      languagesList = languagesList.sort();
+      codeLangs = codeLangs.sort();
+
+      languagesList = languagesList.sort(function (a, b) {
+        return ((a.name < b.name) ? -1 : ((a.name == b.name) ? 0 : 1));
+      });
+
+
+      this.setState({
+        languagesList: languagesList,
+
+      })
+    })
+    
   }
 
-  getLanguageFromSignUp = (language) => {
+  getLanguage = (language) => {
     this.setState({
       language: language
     })
@@ -89,7 +129,7 @@ class App extends Component {
       alert: false
     })
 
-    console.log(this.state)
+    
   }
 
   selectOption = (event) => {
@@ -98,17 +138,14 @@ class App extends Component {
     })
   }
 
-  seeFriendList = () => {
-    console.log(this.state.friendsVisible)
-    this.state.friendsVisible
-      ?
+  settings = () => {
+    
+    
       this.setState({
-        friendsVisible: false
+        settingsStatus: !this.state.settingsStatus
       })
-      :
-      this.setState({
-        friendsVisible: true
-      })
+      
+      
   }
 
   render() {
@@ -116,7 +153,7 @@ class App extends Component {
     return (
       
       <div>
-        <Header signedIn={this.state.signedIn} friendListAppear={this.seeFriendList} />
+        <Header signedIn={this.state.signedIn} onClickFunction={this.settings} />
         <main>
           {this.state.signedIn
             ?
@@ -135,19 +172,25 @@ class App extends Component {
               </div>
               {this.state.optionSelected === "signIn"
                 ?
-                <SignInPage />
+                <SignInPage getLanguage={this.getLanguage} />
                 :
                 this.state.optionSelected === "signUp"
                   ?
-                  <SignUp function={this.getLanguageFromSignUp} />
+                  <SignUp function={this.getLanguage} languages={this.state.languagesList} />
                   :
-                  <GuestSignUp />
+                  <GuestSignUp languages={this.state.languagesList} />
 
             }
               
               
               
             </div>
+          }
+          {this.state.settingsStatus && this.state.signedIn
+            ?
+            <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language}/>
+            :
+            ""
           }
         </main>
         <Footer/>

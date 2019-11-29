@@ -100,7 +100,7 @@ class SignUp extends Component{
                 <input type="email" id="email" onChange={this.handleChange} value={this.state.email} required />
                 <label htmlFor="password">Enter password</label>
                 <input type="password" id="password" onChange={this.handleChange} value={this.state.password} required />
-                <LanguageSelector function={this.getLanguage} />
+                <LanguageSelector languages={this.props.languages} function={this.getLanguage} />
                 <SubmitButton label="Sign up" />
             </form>
         )

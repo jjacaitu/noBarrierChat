@@ -4,25 +4,37 @@ import firebase from "firebase"
 const signOut = () => {
     firebase.auth().signOut();
 }
+
+
     
 
 
 function Header(props) {
 
+    const callSettings = () => {
+        props.onClickFunction()
+    }
+
     
 
     return (
         <header>
-            <h1>No Barriers Chat!</h1>
-            {props.signedIn
-                ?
-                <nav>
-                    <button onClick={signOut}>Sign Out</button>
-                    <button>Settings</button>
-                </nav>
-                :
-                ""
-            }
+            <div className="wrapper">
+                <div className="headerMain">
+                    <h1>No Barriers Chat!</h1>
+                    {props.signedIn
+                        ?
+                        <nav>
+                            <button onClick={signOut}>Sign Out</button>
+                            <button onClick={callSettings}>Settings</button>
+                        </nav>
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
             
         </header>
     )

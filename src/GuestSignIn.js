@@ -100,7 +100,7 @@ class GuestSignUp extends Component {
             <form className="guestSignIn" action="" onSubmit={this.signInGuest}>
                 <h2>Sign up Guest</h2>
                 <p>Signing in as a guest means you wont be able to select your nickname and will only be able to  get access to your conversations while logged in. If your refresh the page you will automatically logged out.</p>
-                <LanguageSelector function={this.getLanguage} />
+                <LanguageSelector languages={this.props.languages} function={this.getLanguage} />
                 <SubmitButton label="Sign in" />
                 
             </form>

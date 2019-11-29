@@ -26,6 +26,10 @@ class SignInPage extends Component{
         event.preventDefault();
         
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((result) => {
+            const userUid = result.user.uid;
+            firebase.database().ref(`${userUid}/settings/language`).once("value").then((snapshot) => {
+                this.props.getLanguage(snapshot.val());
+            })
             
             
         }).catch(function (error) {

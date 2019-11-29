@@ -121,7 +121,7 @@ class ChatPage extends Component {
         
     render() {
         return (
-            <div>
+            <div className="wrapper">
                 
                 
                 <div className="chatPageContainer">
@@ -146,7 +146,7 @@ class ChatPage extends Component {
                         </ul>
                     </div>
                     <div className="messagesAndTextContainer">
-                        <h2>{`Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h2>
+                        <h3>{`Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h3>
                         <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} userImg={this.state.userImg} />
                         <ChatForm  language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>
                     </div>

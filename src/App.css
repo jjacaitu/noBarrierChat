@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: 'Concert One', cursive;
+  font-family: 'Poppins', cursive;
   color: #112d4e;
   background-color: #f9f7f7;
 }
@@ -20,7 +20,7 @@ ul {
   list-style: none;
 }
 
-h1, h2, p, ul {
+h1, h2, h3, p, ul {
   padding: 0;
   margin: 0;
 }
@@ -52,19 +52,23 @@ button {
 
 
 header {
-  display: flex;
+  
   /* background-color: rgb(20, 26, 119); */
   background-color: #dbe2ef;
-  /* color: #547aa5; */
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  /* padding-bottom: 20px; */
+  margin-bottom: 40px;
+  padding: 30px 0;
   min-height: 7vh;
   color: white;
   border-bottom: solid 5px #112d4e;
-  margin-bottom: 40px;
-  padding: 30px 0;
+  
+}
+
+.headerMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
 }
 
 nav {
@@ -75,7 +79,7 @@ nav {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   position: relative;
   color: #f9f7f7;
   z-index: 1;
@@ -93,10 +97,6 @@ h1 {
 h1:after{
   content: "";
   position: absolute;
-  
-  /* border-radius: 20px; */
-  /* width: 0px;
-  height: 0px; */
   border-style: solid;
   border-color: #112d4e transparent transparent transparent;
   border-width: 18px 18px 0px 18px;
@@ -108,7 +108,7 @@ h1:after{
 
 main {
   background-color: #f9f7f7;
-  color: white;
+  /* color: white; */
   min-height: 88vh;
   padding-bottom: 40px;
 
@@ -117,6 +117,18 @@ main {
 h2 {
   text-align: center;
   padding-bottom: 30px;
+}
+
+h3 {
+  padding: 20px;
+  width: 60%;
+  text-align: center;
+}
+
+.wrapper {
+  max-width: 1400px;
+  width: 80%;
+  margin:0 auto;
 }
 
 .App-link {
@@ -194,7 +206,9 @@ h2 {
 
 .chatPageContainer {
   display: flex;
-  width: 100%
+  width: 100%;
+  align-items: flex-start;
+  animation: appear 0.5s both 1;
 }
 
 .listOfFriends {
@@ -203,7 +217,7 @@ h2 {
   width:25%;
   padding: 20px;
   background-color: #dbe2ef;
-  
+  height: 80%;
   border: solid 5px #112d4e;
   align-items: center;
   color: #112d4e;
@@ -214,6 +228,10 @@ h2 {
   padding-bottom: 20px;
   text-align: center;
   
+}
+
+.addFriendBar input {
+  width: 80%;
 }
 
 
@@ -299,13 +317,14 @@ h2 {
 .recentMessages {
   border: solid #112d4e 4px;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: start;
   border-radius: 0 0 15px 15px;
   background-color: white;
+  padding: 10px;
 
   /* background-color: lightblue; */
   overflow-y: scroll;
@@ -314,7 +333,7 @@ h2 {
 .chatForm {
   display: flex;
   width: 60%;
-  height: 15%;
+  max-height: 180px;
   justify-content: center;
   align-items: center;
   background-color: #f9f7f7;
@@ -331,6 +350,7 @@ textarea {
   background-color: white;
   resize: none;
   width: 60%;
+  padding: 10px;
   
 }
 
@@ -352,27 +372,63 @@ textarea:disabled {
 }
 
 .sent, .recieved {
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 20px;
   max-width: 70%;
-  margin-bottom: 10px;
+  
+  position: relative;
+  z-index: 0;
+  margin-bottom: 20px;
 }
 
 .sent {
 align-self: end;
-background-color: rgb(97, 145, 97);
+background-color: rgb(177, 231, 177);
 
 }
 
 .recieved {
   align-self: start;
-  background-color: rgb(39, 78, 128);
+  background-color: rgb(141, 174, 218);
  
+}
+
+.sent:after, .recieved:after{
+  content: "";
+  position: absolute;
+  border-style: solid;
+  border-width: 18px 18px 0px 18px;
+  top: 98%;
+  bottom: -18px;
+  z-index: -1;
+}
+
+.sent:after {
+  border-color: rgb(177, 231, 177) transparent transparent transparent;
+  right: 25px;
+}
+
+.recieved:after {
+  border-color: rgb(141, 174, 218) transparent transparent transparent;
+  left: 25px;
 }
 
 .time {
   color: rgb(63, 63, 63);
   font-size: 0.8rem;
+}
+
+/* Settings page */
+
+.settingsPage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #dbe2ef;
+  padding: 30px;
+  border: solid 5px #112d4e;
+  animation: appear both 0.5s 1;
 }
 
 
