@@ -248,6 +248,10 @@ h2 {
   background-color: white;
 }
 
+.messagesAndTextContainer h2 {
+  background-color: rgb(27, 27, 27);
+}
+
 .recentMessagesDiv {
   width: 60%;
   border-radius: 20px;
@@ -296,6 +300,7 @@ textarea:disabled {
 
 .submitButton {
   background-color: #ff0;
+  color: rgb(27, 27, 27);
 
 }
 
