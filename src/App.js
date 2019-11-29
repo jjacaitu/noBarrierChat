@@ -111,7 +111,7 @@ class App extends Component {
       
 
       languagesList = languagesList.sort(function (a, b) {
-        return ((a.name < b.name) ? -1 : ((a.name == b.name) ? 0 : 1));
+        return ((a.name < b.name) ? -1 : ((a.name === b.name) ? 0 : 1));
       });
 
       // Storing the list of available lenguages in state and rerendering to show the options to the user

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SubmitButton from "./SubmitButton";
 import firebase from "./firebase";
 import AlertMessage from "./AlertMessage";
-import { isGenericTypeAnnotation } from "@babel/types";
+
 
 class AddFriendButton extends Component {
     constructor() {
