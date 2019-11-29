@@ -42,12 +42,12 @@ class SignInPage extends Component{
         
         return (
             
-            <form action="" onSubmit={this.signIn}>
+            <form className="signIn" action="" onSubmit={this.signIn}>
                 <h2>Sign In</h2>
                 <label htmlFor="email">Enter email</label>
-                <input type="text" id="email" onChange={this.handleChange} value={this.state.email} required />
+                <input type="email" id="email" onChange={this.handleChange} value={this.state.email} required />
                 <label htmlFor="password">Enter password</label>
-                <input type="text" id="password" onChange={this.handleChange} value={this.state.password} required/>
+                <input type="password" id="password" onChange={this.handleChange} value={this.state.password} required/>
                 <SubmitButton label="Sign in"/>
             </form>
         )

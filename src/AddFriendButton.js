@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import SubmitButton from "./SubmitButton";
 import firebase from "./firebase";
+import AlertMessage from "./AlertMessage";
 
 class AddFriendButton extends Component {
     constructor() {
         super();
         this.state = {
             nickname:null,
-            openedChats:[]
+            openedChats: [],
+            error: false,
+            errorMessage:""
         }
     }
 
@@ -70,6 +73,7 @@ class AddFriendButton extends Component {
                     values.filter((value, index) => {
                         if (value.val() === this.state.nickname) {
                             console.log("found");
+                            
 
                             // If found check th other user doesnt have more than 5 conversations
 
@@ -95,10 +99,18 @@ class AddFriendButton extends Component {
                                     })
 
                                 }else{
-                                    console.log("friends has already 5 conversations going");
+                                    this.setState({
+                                        errorMessage: "The user you are trying to reach has already 5 conversations opened.",
+                                        error: true
+                                    });
                                 }
                             })
                             
+                        } else {
+                            this.setState({
+                                errorMessage: "The user you are searching for doesn't exist",
+                                error: true
+                            });
                         }
                     })
                 })
@@ -108,13 +120,17 @@ class AddFriendButton extends Component {
         }
     }
     
-    openOption = () => {
-        console.log("open");
-    }
+    
     
     handleChange = (event) => {
         this.setState({
             nickname: event.target.value
+        })
+    }
+
+    closeAlert = () => {
+        this.setState({
+            error:false
         })
     }
 
@@ -124,9 +140,15 @@ class AddFriendButton extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.openOption}>+</button>
-                <form action="" onSubmit={this.addFriend}>
-                    <label htmlFor="nickname">Enter nickname of friend:</label>
+                {this.state.error
+                    ?
+                    <AlertMessage message={this.state.errorMessage} functionToClose={this.closeAlert} resend={false}/>
+                    :
+                    ""
+                }
+                
+                <form className="addFriendBar" action="" onSubmit={this.addFriend}>
+                    <label htmlFor="nickname">Enter nickname of a friend to start a conversation:</label>
                     <input type="text" id="nickname" value={this.state.nickname} onChange={this.handleChange} />
                     <SubmitButton label="Add" />
                 </form>

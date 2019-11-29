@@ -92,18 +92,15 @@ class SignUp extends Component{
     render() {
         return (
 
-            <form action="" onSubmit={this.createUser}>
+            <form className="signUp" action="" onSubmit={this.createUser}>
                 <h2>Sign up</h2>
-                <label htmlFor="name">Enter name</label>
-                <input type="text" id="name" onChange={this.handleChange} value={this.state.name} required />
+                <label htmlFor="name">Enter nickname</label>
+                <input type="text" id="name" maxLength={10} onChange={this.handleChange} value={this.state.name} required />
                 <label htmlFor="email">Enter email</label>
-                <input type="text" id="email" onChange={this.handleChange} value={this.state.email} required />
+                <input type="email" id="email" onChange={this.handleChange} value={this.state.email} required />
                 <label htmlFor="password">Enter password</label>
-                <input type="text" id="password" onChange={this.handleChange} value={this.state.password} required />
+                <input type="password" id="password" onChange={this.handleChange} value={this.state.password} required />
                 <LanguageSelector function={this.getLanguage} />
-                {/* <p>{this.state.language}</p>
-                <p>{this.state.name}</p>
-                <p>{this.state.email}</p> */}
                 <SubmitButton label="Sign up" />
             </form>
         )

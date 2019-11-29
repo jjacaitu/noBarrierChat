@@ -20,8 +20,8 @@ class GuestSignUp extends Component {
     signInGuest = (event) => {
         event.preventDefault();
 
-        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-        //     .then(() => {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+            .then(() => {
                 // Existing and future Auth states are now persisted in the current
                 // session only. Closing the window would clear any existing state even
                 // if a user forgets to sign out.
@@ -60,7 +60,6 @@ class GuestSignUp extends Component {
 
                     })
 
-
                 }).catch(function (error) {
                     // Handle Errors here.
                     var errorCode = error.code;
@@ -68,12 +67,12 @@ class GuestSignUp extends Component {
                     console.log(errorMessage);
                     // ...
                 });
-            // })
-            // .catch(function (error) {
-            //     // Handle Errors here.
-            //     var errorCode = error.code;
-            //     var errorMessage = error.message;
-            // });
+            })
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
 
 
         
@@ -98,19 +97,11 @@ class GuestSignUp extends Component {
     render() {
         return (
 
-            <form action="" onSubmit={this.signInGuest}>
+            <form className="guestSignIn" action="" onSubmit={this.signInGuest}>
                 <h2>Sign up Guest</h2>
-                {/* <label htmlFor="name">Enter name</label>
-                <input type="text" id="name" onChange={this.handleChange} value={this.state.name} required />
-                <label htmlFor="email">Enter email</label>
-                <input type="text" id="email" onChange={this.handleChange} value={this.state.email} required />
-                <label htmlFor="password">Enter password</label>
-                <input type="text" id="password" onChange={this.handleChange} value={this.state.password} required /> */}
+                <p>Signing in as a guest means you wont be able to select your nickname and will only be able to  get access to your conversations while logged in. If your refresh the page you will automatically logged out.</p>
                 <LanguageSelector function={this.getLanguage} />
-                {/* <p>{this.state.language}</p>
-                <p>{this.state.name}</p>
-                <p>{this.state.email}</p> */}
-                <SubmitButton label="Sign up" />
+                <SubmitButton label="Sign in" />
                 
             </form>
         )

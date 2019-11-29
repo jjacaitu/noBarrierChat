@@ -1,5 +1,5 @@
 import React from "react";
-
+import noImage from "./noImage.png";
 
 
 
@@ -15,12 +15,17 @@ function FriendSelector(props) {
     }
 
     return (
-        <li>
+        <li className="friendButton">
             <button onClick={setName} value={props.name} id={props.uid}>
-                <img src={props.imgUrl} alt={`A picture of ${props.name}`} />
+                {props.imgUrl
+                    ?
+                    <img src={props.imgUrl} alt={`A picture of ${props.name}`}/>
+                    :
+                <img src={noImage} alt={`The user has no picture`}/>
+            } 
                 <p>{props.name}</p>
             </button>
-            <button onClick={deleteConversation} value={props.index}>-</button>
+            <button className="deleteButton" onClick={deleteConversation} value={props.index}>-</button>
             
         </li>
     )

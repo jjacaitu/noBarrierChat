@@ -58,7 +58,7 @@ class LanguageSelector extends Component {
         return (
             <div>
 
-            <label htmlFor="language">Select your language</label>
+            <label htmlFor="language">Select your language:  </label>
                 <select name="language" id="language" onChange={this.props.function} required>
                 {this.state.languages.map((language) => {
                 return <option id={language.name} value={language.code} selected={language.name==="English"?"selected":""}>{language.name} </option>

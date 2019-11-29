@@ -17,7 +17,13 @@ class ChatForm extends Component {
         event.preventDefault();
 
         const dbRef = firebase.database().ref(`${this.props.sender}/chats/${this.props.reciever}/messages`);
-        dbRef.push(this.state.text);
+
+        const message = {
+            "message": this.state.text,
+            "type": "sent",
+            "time": Date(Date.now().toString()).split(" GMT").splice(0, 1)
+        }
+        dbRef.push(message);
         
         translate(this.state.text,this.props.sender,this.props.reciever,this.props.nickname);
     }
@@ -31,7 +37,7 @@ class ChatForm extends Component {
 
     render() {
         return (
-            <form action="" onSubmit={this.handleSubmit}>
+            <form className="chatForm" action="" onSubmit={this.handleSubmit}>
                 <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={this.handleChange} disabled={this.props.reciever?false:true} required></textarea>
                 <SubmitButton label="Send"/>
             </form>

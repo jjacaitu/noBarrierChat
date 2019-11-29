@@ -7,6 +7,7 @@ import SignUp from './SignUp';
 import GuestSignUp from './GuestSignIn';
 import AlertMessage from "./AlertMessage";
 import Header from "./Header";
+import Footer from "./Footer";
 
 
 
@@ -21,7 +22,8 @@ class App extends Component {
       name: null,
       language: null,
       verified: null,
-      alert: false
+      alert: false,
+      optionSelected: "signIn"
     }
   }
 
@@ -81,28 +83,61 @@ class App extends Component {
     })
   }
 
+  closeAlert = () => {
+    this.setState({
+      alert: false
+    })
+
+    console.log(this.state)
+  }
+
+  selectOption = (event) => {
+    this.setState({
+      optionSelected:event.target.value
+    })
+  }
+
   render() {
 
     return (
       
       <div>
-        <Header/>
-        {this.state.signedIn
-          ?
-          
-          <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language}/>
-          :
-          <div>
-            {this.state.alert
-              ?
-              <AlertMessage />
-              :
-          ""}
-            <GuestSignUp/>
-            <SignUp function={this.getLanguageFromSignUp} />
-            <SignInPage />
-          </div>
-         }
+        <Header signedIn={this.state.signedIn} />
+        <main>
+          {this.state.signedIn
+            ?
+            
+            <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language}/>
+            :
+            <div className="options">
+              {this.state.alert
+                ?
+                <AlertMessage functionToClose={this.closeAlert} message="Please verify your email and refresh after!" resend={true} />
+                :
+                ""}
+              <div className="optionsButtons">
+                <button onClick={this.selectOption} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"}>Sign In</button>
+                <button onClick={this.selectOption} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"}>Sign Up</button>
+                <button onClick={this.selectOption} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"}>Guest Sign In</button>
+              </div>
+              {this.state.optionSelected === "signIn"
+                ?
+                <SignInPage />
+                :
+                this.state.optionSelected === "signUp"
+                  ?
+                  <SignUp function={this.getLanguageFromSignUp} />
+                  :
+                  <GuestSignUp />
+
+            }
+              
+              
+              
+            </div>
+          }
+        </main>
+        <Footer/>
         
         
       </div>

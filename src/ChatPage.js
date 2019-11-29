@@ -66,9 +66,7 @@ class ChatPage extends Component {
 
     }
 
-    signOut = () => {
-    firebase.auth().signOut();
-    }
+    
     
     // Getting the messages between the user and the selected other user.
     select = (name,uid) => {
@@ -86,6 +84,8 @@ class ChatPage extends Component {
                 } else {
                     messages.push(messagesData);
                 }
+
+                console.log(messages);
 
             }
             
@@ -120,33 +120,37 @@ class ChatPage extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.signOut}>Sign Out</button>
-                <h2>{this.state.chattingWithName
-                ?
-                `${this.props.name} chatting with ${this.state.chattingWithName}`
-                :
-                `Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h2>
-                <div>
+                
+                
+                <div className="chatPageContainer">
 
-                    {/* Only show the add conversation(friend) button if there are less than 5 active conversations */}
+                    
+                    
+                    <div className="listOfFriends">
+                        {/* Only show the add conversation(friend) button if there are less than 5 active conversations */}
                     {this.state.friends.length <= 5
                         ?
                         <AddFriendButton userId={this.state.userId} userNickname={this.state.userNickname} />
                         :
                         null
-                     }
-                    
-                    <ul>
-                        {this.state.friends.map((friend, index) => {
-                            return (
-                                <FriendSelector key={index} uid={friend.uid} name={friend.name} imgUrl={friend.imgUrl ? friend.imgUrl : "none"} userNickname={this.state.userNickname} function={this.select} index={index} deleteFunction={this.deleteConversation}/>
-                            )
-                        })}
-                    </ul>
-                    <div>
+                        }
+                        <ul>
+                            {this.state.friends.map((friend, index) => {
+                                return (
+                                    <FriendSelector key={index} uid={friend.uid} name={friend.name} imgUrl={friend.imgUrl ? friend.imgUrl : null} userNickname={this.state.userNickname} function={this.select} index={index} deleteFunction={this.deleteConversation}/>
+                                )
+                            })}
+
+                        </ul>
+                    </div>
+                    <div className="messagesAndTextContainer">
+                        <h2>{this.state.chattingWithName
+                            ?
+                            `Chat between ${this.props.name} and ${this.state.chattingWithName}`
+                            :
+                            `Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h2>
                         <RecentMessages messages={this.state.messages} />
-                        <p>{this.props.language}</p>
-                        <ChatForm language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>
+                        <ChatForm  language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>
                     </div>
 
                 </div>

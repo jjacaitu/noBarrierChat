@@ -23,10 +23,16 @@ function translate(text,sender,reciever,nickname) {
         }).then((data) => {
             const translation = data.data.text.join("");
             const dbRef = firebase.database().ref(`${reciever}/chats/${sender}/messages`);
-            console.log(`${reciever}/chats/${sender}/messages`)
-            dbRef.push(translation);
+            const translatedMessage = {
+                "message": this.state.text,
+                "type": "recieved",
+                "time": Date(Date.now().toString()).split(" GMT").splice(1, 1)
+            }
+            dbRef.push(translatedMessage);
+            
 
             firebase.database().ref(`${reciever}/chats/${sender}/nickname`).set(nickname);
+
         }).catch((error)=>{
             console.log(error);
         })
