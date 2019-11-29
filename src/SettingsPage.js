@@ -9,7 +9,7 @@ class SettingsPage extends Component {
         super();
         this.state = {
             language: "english",
-            currentLanguage: "hey"
+            currentLanguage: "English"
         }
     }
 

@@ -81,7 +81,8 @@ class App extends Component {
       }
     })
 
-    
+    // Making a call to the API to get all the available languages
+
     axios({
       method: "get",
       url: "https://translate.yandex.net/api/v1.5/tr.json/getLangs",
@@ -94,7 +95,10 @@ class App extends Component {
       
       const languageObject = data.data.langs;
       let languagesList = [];
-      let codeLangs = [];
+    
+
+      // Making an array that will store in objecs both the language code and language name
+
       for (let lang in languageObject) {
         languagesList.push({
           name: languageObject[lang],
@@ -102,14 +106,15 @@ class App extends Component {
         })
 
       }
-      languagesList = languagesList.sort();
-      codeLangs = codeLangs.sort();
+
+      // We sort the lanugauges to order them in alphabetical order
+      
 
       languagesList = languagesList.sort(function (a, b) {
         return ((a.name < b.name) ? -1 : ((a.name == b.name) ? 0 : 1));
       });
 
-
+      // Storing the list of available lenguages in state and rerendering to show the options to the user
       this.setState({
         languagesList: languagesList,
 
@@ -132,28 +137,29 @@ class App extends Component {
     
   }
 
-  selectOption = (event) => {
-    this.setState({
-      optionSelected:event.target.value
-    })
-  }
+  // selectOption = (event) => {
+  //   this.setState({
+  //     optionSelected:event.target.value
+  //   })
+  // }
 
-  settings = () => {
+  // settings = () => {
     
     
-      this.setState({
-        settingsStatus: !this.state.settingsStatus
-      })
+  //     this.setState({
+  //       settingsStatus: !this.state.settingsStatus
+  //     })
       
       
-  }
+  // }
 
   render() {
 
     return (
       
       <div>
-        <Header signedIn={this.state.signedIn} onClickFunction={this.settings} />
+        <Header signedIn={this.state.signedIn} onClickFunction={() => {
+          this.setState({ settingsStatus: !this.state.settingsStatus })}} />
         <main>
           {this.state.signedIn
             ?
@@ -164,12 +170,14 @@ class App extends Component {
                 ?
                 <AlertMessage functionToClose={this.closeAlert} message="Please verify your email and refresh after!" resend={true} />
                 :
-                ""}
+                ""
+              }
               <div className="optionsButtons">
-                <button onClick={this.selectOption} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"}>Sign In</button>
-                <button onClick={this.selectOption} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"}>Sign Up</button>
-                <button onClick={this.selectOption} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"}>Guest Sign In</button>
+                <button onClick={(e) => this.setState({optionSelected: e.target.value})} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"}>Sign In</button>
+                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"}>Sign Up</button>
+                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"}>Guest Sign In</button>
               </div>
+
               {this.state.optionSelected === "signIn"
                 ?
                 <SignInPage getLanguage={this.getLanguage} />
@@ -180,12 +188,11 @@ class App extends Component {
                   :
                   <GuestSignUp languages={this.state.languagesList} />
 
-            }
-              
-              
-              
+              }
+
             </div>
           }
+                
           {this.state.settingsStatus && this.state.signedIn
             ?
             <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language}/>
@@ -193,9 +200,9 @@ class App extends Component {
             ""
           }
         </main>
+
         <Footer/>
-        
-        
+      
       </div>
     )
   }

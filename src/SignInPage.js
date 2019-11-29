@@ -10,6 +10,9 @@ class SignInPage extends Component{
         this.state = {
             email: "",
             password: "",
+            forgetPassword: false,
+            emailToRecover: "",
+            emailSent:false
         }
     }
     
@@ -41,19 +44,55 @@ class SignInPage extends Component{
             // ...
         });
     }
+
+    recoverPassword = (event) => {
+        event.preventDefault();
+        firebase.auth().sendPasswordResetEmail(this.state.emailToRecover).then(function () {
+            this.setState({
+                emilSent: true
+            })
+        }).catch(function (error) {
+            // An error happened.
+        });
+
+    }
     
     render() {
         
         return (
-            
-            <form className="signIn" action="" onSubmit={this.signIn}>
-                <h2>Sign In</h2>
-                <label htmlFor="email">Enter email</label>
-                <input type="email" id="email" onChange={this.handleChange} value={this.state.email} required />
-                <label htmlFor="password">Enter password</label>
-                <input type="password" id="password" onChange={this.handleChange} value={this.state.password} required/>
-                <SubmitButton label="Sign in"/>
-            </form>
+            <div className="signIn">
+                <form  action="" onSubmit={this.signIn}>
+                    <h2>Sign In</h2>
+                    <label htmlFor="email">Enter email</label>
+                    <input type="email" id="email" onChange={this.handleChange} value={this.state.email} required />
+                    <label htmlFor="password">Enter password</label>
+                    <input type="password" id="password" onChange={this.handleChange} value={this.state.password} required/>
+                    <SubmitButton label="Sign in" />
+                    
+                </form>
+                <button onClick={() => { this.setState({ forgetPassword: !this.state.forgetPassword }) }}>Forgot your password?</button>
+                
+                {
+                    this.state.forgetPassword
+                        ?
+                        <form className="recoverPassword" action="" onSubmit={this.recoverPassword}>
+                            <label htmlFor="emailToRecover">Enter your email:</label>
+                            <input type="email" id="emailToRecover" onChange={this.handleChange} required />
+                            <SubmitButton label="Recover password" />
+                        </form>
+                        :
+                        ""
+                        
+                }
+
+                {this.state.emailSent
+                    ?
+                    <p>An email has been sent with the instructions to recover your password.</p>
+                    :
+                    ""
+                }
+                
+            </div>
         )
     }
     
