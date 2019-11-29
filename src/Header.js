@@ -3,9 +3,14 @@ import firebase from "firebase"
 
 const signOut = () => {
     firebase.auth().signOut();
-    }
+}
+    
+
 
 function Header(props) {
+
+    
+
     return (
         <header>
             <h1>No Barriers Chat!</h1>

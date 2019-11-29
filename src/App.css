@@ -12,7 +12,8 @@ html {
 
 body {
   font-family: 'Concert One', cursive;
-  /* color: white; */
+  color: #112d4e;
+  background-color: #f9f7f7;
 }
 
 ul {
@@ -31,7 +32,10 @@ img {
 
 input, select {
   margin: 20px;
-  text-align: center;
+  font-size: 0.8rem;
+  width: 50%;
+  padding-left: 10px;
+  
 }
 
 button {
@@ -47,7 +51,7 @@ button {
 header {
   display: flex;
   /* background-color: rgb(20, 26, 119); */
-  background-color: rgb(27, 27, 27);
+  background-color: #f9f7f7;
   /* color: #547aa5; */
   justify-content: center;
   align-items: center;
@@ -55,18 +59,21 @@ header {
   /* padding-bottom: 20px; */
   min-height: 7vh;
   color: white;
+  border-bottom: solid 5px #112d4e;
+  margin-bottom: 40px;
 }
 
 nav {
   width: 100%;
   display: flex;
+  color: #112d4e;
   justify-content: space-around;
 }
 
 h1 {
   font-size: 3rem;
   position: relative;
-  color: #ff0;
+  color: #112d4e;
   z-index: 1;
 
     
@@ -84,7 +91,7 @@ h1 {
 
 }
 
-h1:after{
+/* h1:after{
   content: "";
   position: absolute;
   background-color: #547aa5;
@@ -94,13 +101,14 @@ h1:after{
   left: -10%;
   bottom: -10px;
   z-index: -1;
-}
+} */
 
 main {
-  background-color: rgb(27, 27, 27);
+  background-color: #f9f7f7;
   color: white;
   min-height: 88vh;
   padding-bottom: 40px;
+
 }
 
 h2 {
@@ -131,7 +139,7 @@ h2 {
 
 .optionsButtons button {
   background-color: transparent;
-  color: gold;
+  color: #112d4e;
   border: none;
 }
 
@@ -149,11 +157,12 @@ h2 {
   width: 40%;
   text-align: center;
   min-height: 75vh;
-  background-color: rgb(27, 27, 27);
+  background-color: #dbe2ef;
   color: white;
   /* padding-bottom: 50px; */
-  border: solid 3px #ff0;
+  border: solid 3px #112d4e;
   border-radius: 20px;
+  color: #112d4e;
 }
 
 .signIn {
@@ -189,8 +198,12 @@ h2 {
   flex-direction: column;
   width:25%;
   padding: 20px;
-  background-color: rgb(27, 27, 27);
+  background-color: #dbe2ef;
+  
+  border: solid 5px #112d4e;
   align-items: center;
+  color: #112d4e;
+  border-radius: 20px;
 }
 
 .addFriendBar {
@@ -199,11 +212,7 @@ h2 {
   
 }
 
-.addFriendBar button {
-  color: rgb(27, 27, 27);
-  
-  
-}
+
 
 .friendButton {
   
@@ -213,7 +222,7 @@ h2 {
   padding: 10px;
   background-color: white;
   border-radius: 20px;
-  color: rgb(27, 27, 27);
+  color: #112d4e;
 
 }
 
@@ -235,7 +244,7 @@ h2 {
 .deleteButton {
   width:100%;
   font-size: 2rem;
-  color: red;
+  color: #ff4343;
   padding: 0px;
 }
 
@@ -245,11 +254,12 @@ h2 {
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
-  background-color: white;
+  background-color: #f9f7f7;
 }
 
 .messagesAndTextContainer h2 {
-  background-color: rgb(27, 27, 27);
+  
+  color: #112d4e;
 }
 
 .recentMessagesDiv {
@@ -257,8 +267,32 @@ h2 {
   border-radius: 20px;
 }
 
+.chatHeader {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  background-color: #3f72af;
+  padding: 10px;
+  border-bottom: #112d4e solid 5px;
+
+}
+
+.chatHeader h2 {
+  padding: 0;
+  padding-left: 10px;
+  color:#f9f7f7;
+  
+}
+
+.chatHeader img {
+  width: 10%;
+  border-radius: 50%;
+  padding: 5px;
+  
+}
+
 .recentMessages {
-  border: solid rgb(22, 0, 102) 4px;
+  border: solid #112d4e 4px;
   width: 100%;
   height: 100%;
   height: 60vh;
@@ -276,31 +310,39 @@ h2 {
   display: flex;
   width: 60%;
   height: 15%;
-  background-color: slategrey;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f7f7;
+  border-radius: 20px;
+  border: solid 5px #112d4e;
+  margin-top: 20px;
 }
 
 textarea {
-  width: 75%;
-  border: solid 4px rgb(22, 0, 102);
-  /* border-radius: 30px; */
+  height: 70%;
+  /* border: solid 4px rgb(22, 0, 102); */
+  border: none;
+  border-radius: 15px;
   background-color: white;
   resize: none;
+  width: 60%;
   
 }
 
 textarea:disabled {
-  background-color: grey;
+  background-color: #dbe2ef;
 }
 
 .chatForm button {
   width: 25%;
-  color: rgb(27, 27, 27);
+  margin-left: 20px;
+  
   /* border-radius: 30px; */
 }
 
 .submitButton {
-  background-color: #ff0;
-  color: rgb(27, 27, 27);
+  background-color: #ff4343;
+  color: #f9f7f7;
 
 }
 
@@ -313,13 +355,13 @@ textarea:disabled {
 
 .sent {
 align-self: end;
-background-color: rgb(179, 240, 179);
+background-color: rgb(97, 145, 97);
 
 }
 
 .recieved {
   align-self: start;
-  background-color: lightgoldenrodyellow;
+  background-color: rgb(39, 78, 128);
  
 }
 
@@ -362,7 +404,8 @@ footer {
   text-align: center;
   /* background-color: rgb(27, 27, 27); */
   /* color: #4f5165; */
-  background-color: #4f5165;
+  background-color: #dbe2ef;
+  border-top: solid 1px #112d4e;
   display: flex;
   align-items: center;
   justify-content: center;

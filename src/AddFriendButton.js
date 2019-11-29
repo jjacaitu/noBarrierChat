@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SubmitButton from "./SubmitButton";
 import firebase from "./firebase";
 import AlertMessage from "./AlertMessage";
+import { isGenericTypeAnnotation } from "@babel/types";
 
 class AddFriendButton extends Component {
     constructor() {
@@ -48,7 +49,13 @@ class AddFriendButton extends Component {
         // Checking if theres no opened conversations opened with that user and that the user isnt trying to start a conversation with itself
         
         if(this.state.openedChats.includes(this.state.nickname) || (this.state.nickname === this.props.userNickname)){
-            console.log("You already have an opened chat with", this.state.nickname);
+            
+            
+            this.setState({
+                errorMessage: `You already have an opened chat with ${this.state.nickname}`,
+                error: true
+            });
+            
         }else{
 
             const databaseRef = firebase.database().ref();
@@ -70,9 +77,10 @@ class AddFriendButton extends Component {
                 // Using promise.all to make sure to get all values before doing anything
     
                 Promise.all(arrayPromises).then((values) => {
-                    values.filter((value, index) => {
+                    values.forEach((value, index) => {
                         if (value.val() === this.state.nickname) {
                             console.log("found");
+                            
                             
 
                             // If found check th other user doesnt have more than 5 conversations
@@ -106,13 +114,15 @@ class AddFriendButton extends Component {
                                 }
                             })
                             
-                        } else {
+                        } else if (index === (values.length - 1)) {
                             this.setState({
-                                errorMessage: "The user you are searching for doesn't exist",
+                                errorMessage: `${this.state.nickname} doesn't have an account!`,
                                 error: true
                             });
                         }
                     })
+
+                    
                 })
         
                 

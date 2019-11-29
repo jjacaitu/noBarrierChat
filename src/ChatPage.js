@@ -116,6 +116,7 @@ class ChatPage extends Component {
             console.log("deleted");
         });
     }
+    
         
     render() {
         return (
@@ -144,12 +145,8 @@ class ChatPage extends Component {
                         </ul>
                     </div>
                     <div className="messagesAndTextContainer">
-                        <h2>{this.state.chattingWithName
-                            ?
-                            `Chat between ${this.props.name} and ${this.state.chattingWithName}`
-                            :
-                            `Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h2>
-                        <RecentMessages messages={this.state.messages} />
+                        <h2>{`Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h2>
+                        <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} />
                         <ChatForm  language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>
                     </div>
 

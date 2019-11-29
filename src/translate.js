@@ -24,7 +24,7 @@ function translate(text,sender,reciever,nickname) {
             const translation = data.data.text.join("");
             const dbRef = firebase.database().ref(`${reciever}/chats/${sender}/messages`);
             const translatedMessage = {
-                "message": text,
+                "message": translation,
                 "type": "recieved",
                 "time": Date(Date.now().toString()).split(" GMT").splice(1, 1)
             }

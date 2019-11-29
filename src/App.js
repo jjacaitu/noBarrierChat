@@ -23,7 +23,8 @@ class App extends Component {
       language: null,
       verified: null,
       alert: false,
-      optionSelected: "signIn"
+      optionSelected: "signIn",
+      friendsVisible: false
     }
   }
 
@@ -97,17 +98,29 @@ class App extends Component {
     })
   }
 
+  seeFriendList = () => {
+    console.log(this.state.friendsVisible)
+    this.state.friendsVisible
+      ?
+      this.setState({
+        friendsVisible: false
+      })
+      :
+      this.setState({
+        friendsVisible: true
+      })
+  }
+
   render() {
 
     return (
       
       <div>
-        <Header signedIn={this.state.signedIn} />
+        <Header signedIn={this.state.signedIn} friendListAppear={this.seeFriendList} />
         <main>
           {this.state.signedIn
             ?
-            
-            <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language}/>
+            <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
             :
             <div className="options">
               {this.state.alert
