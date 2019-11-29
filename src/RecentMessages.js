@@ -5,12 +5,25 @@ import noImage from "./noImage.png"
 function RecentMessages(props) {
     return (
         <div className="recentMessagesDiv">
-            
-            <ul className="recentMessages">
-                <div className="chatHeader">
-                    <img src={noImage} alt=""/>
+            <div className="chatHeader">
+                {props.userImg
+                    ?
+                    <img src={props.userImg} alt="" />
+                    :
+                    <img src={noImage} alt="" />
+                }
+                    
+                {props.chattingWith
+                    ?
+                    
                     <h2>{props.chattingWith}</h2>
-                </div>
+                
+                :
+                <h2>No chat has been selected!</h2>
+
+                }
+            </div>
+            <ul className="recentMessages">
                 {   
                     props.messages.map((message, index) => {
                         return (

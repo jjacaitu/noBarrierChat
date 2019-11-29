@@ -21,6 +21,7 @@ class ChatPage extends Component {
             friends: [],
             messages: [],
             language: "",
+            userImg: null
         }
     }
 
@@ -146,7 +147,7 @@ class ChatPage extends Component {
                     </div>
                     <div className="messagesAndTextContainer">
                         <h2>{`Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h2>
-                        <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} />
+                        <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} userImg={this.state.userImg} />
                         <ChatForm  language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>
                     </div>
 

@@ -11,7 +11,7 @@ function FriendSelector(props) {
 
     const deleteConversation = (event) => {
        
-        props.deleteFunction(event.target.value);
+        props.deleteFunction(event.currentTarget.value);
     }
 
     return (

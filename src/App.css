@@ -35,6 +35,8 @@ input, select {
   font-size: 0.8rem;
   width: 50%;
   padding-left: 10px;
+  border-radius: 10px;
+  border: solid 1px #112d4e;
   
 }
 
@@ -45,13 +47,14 @@ button {
   border-radius: 10px;
   margin: 10px;
   color: inherit;
+  transition: all 0.5s;
 }
 
 
 header {
   display: flex;
   /* background-color: rgb(20, 26, 119); */
-  background-color: #f9f7f7;
+  background-color: #dbe2ef;
   /* color: #547aa5; */
   justify-content: center;
   align-items: center;
@@ -61,6 +64,7 @@ header {
   color: white;
   border-bottom: solid 5px #112d4e;
   margin-bottom: 40px;
+  padding: 30px 0;
 }
 
 nav {
@@ -73,35 +77,34 @@ nav {
 h1 {
   font-size: 3rem;
   position: relative;
-  color: #112d4e;
+  color: #f9f7f7;
   z-index: 1;
+  background-color: #112d4e;
+  border-radius: 20px;
+  padding: 10px 25px;
+
+  font-family: 'Berkshire Swash', cursive;
 
     
-
-   
-
-    /* font-family: 'Fugaz One', cursive; */
-
-    /* font-family: 'Fredericka the Great', cursive; */
-
-    font-family: 'Berkshire Swash', cursive;
-
-    /* font-family: 'Rye', cursive; */
 
 
 }
 
-/* h1:after{
+h1:after{
   content: "";
   position: absolute;
-  background-color: #547aa5;
-  border-radius: 20px;
-  width: 120%;
-  height: 5%;
-  left: -10%;
-  bottom: -10px;
+  
+  /* border-radius: 20px; */
+  /* width: 0px;
+  height: 0px; */
+  border-style: solid;
+  border-color: #112d4e transparent transparent transparent;
+  border-width: 18px 18px 0px 18px;
+  right: 25px;
+  top: 98%;
+  bottom: -20px;
   z-index: -1;
-} */
+}
 
 main {
   background-color: #f9f7f7;
@@ -163,6 +166,7 @@ h2 {
   border: solid 3px #112d4e;
   border-radius: 20px;
   color: #112d4e;
+  animation: appear 0.5s both 1;
 }
 
 .signIn {
@@ -273,7 +277,8 @@ h2 {
   align-items: center;
   background-color: #3f72af;
   padding: 10px;
-  border-bottom: #112d4e solid 5px;
+  border-radius: 15px 15px 0 0;
+  border: #112d4e solid 5px;
 
 }
 
@@ -299,7 +304,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  border-radius: 10px;
+  border-radius: 0 0 15px 15px;
   background-color: white;
 
   /* background-color: lightblue; */
@@ -410,4 +415,17 @@ footer {
   align-items: center;
   justify-content: center;
   height: 5vh;
+}
+
+
+/* Keyframes */
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

@@ -77,9 +77,11 @@ class AddFriendButton extends Component {
                 // Using promise.all to make sure to get all values before doing anything
     
                 Promise.all(arrayPromises).then((values) => {
+                    let found = false;
                     values.forEach((value, index) => {
+                        
                         if (value.val() === this.state.nickname) {
-                            console.log("found");
+                            found = true;
                             
                             
 
@@ -114,7 +116,8 @@ class AddFriendButton extends Component {
                                 }
                             })
                             
-                        } else if (index === (values.length - 1)) {
+                        } else if (index === (values.length - 1) && !found) {
+                           console.log(found)
                             this.setState({
                                 errorMessage: `${this.state.nickname} doesn't have an account!`,
                                 error: true
@@ -159,7 +162,7 @@ class AddFriendButton extends Component {
                 
                 <form className="addFriendBar" action="" onSubmit={this.addFriend}>
                     <label htmlFor="nickname">Enter nickname of a friend to start a conversation:</label>
-                    <input type="text" id="nickname" value={this.state.nickname} onChange={this.handleChange} />
+                    <input type="text" id="nickname" value={this.state.nickname} onChange={this.handleChange} required/>
                     <SubmitButton label="Add" />
                 </form>
             </div>
