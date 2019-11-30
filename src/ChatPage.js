@@ -153,7 +153,7 @@ class ChatPage extends Component {
                             
                             <AlertMessage functionToClose={()=>{this.setState({
                                 deleteConfirmation:false
-                            })}} message="Are you sure you want to delete your conversation?" originalLabel="Nevermind" aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel="Confirm"/>
+                            })}} message="Are you sure you want to delete your conversation?" originalLabel={<i class="fas fa-times-circle iconButton"></i>} aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel={<i class="fas fa-check-circle iconButton"></i>}/>
                             :
                             ""
                     
@@ -182,12 +182,10 @@ class ChatPage extends Component {
                         </ul>
                     </div>
                     <div className="messagesAndTextContainer">
-                        {this.state.chattingWithName
-                            ?
-                            ""
-                            :
-                            <h3>{`Hi`} <span>{this.props.name}</span>{`! Start chatting without worrying about language barrier! `}</h3>
-                            }
+                        
+                        <p>{`Welcome`} <span>{this.props.name}</span>{`!`}</p>
+                        <p>This is interpreter! Text messaging without language barrier!</p>
+                            
                         
                         <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} userImg={this.state.userImg} />
                         <ChatForm  language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>

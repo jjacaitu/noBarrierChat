@@ -310,9 +310,10 @@ span {
   transition: all 0.5s;
 }
 
-.messagesAndTextContainer h2 {
-  
+.messagesAndTextContainer p {
+  text-align: center;
   color: #112d4e;
+  padding-bottom:20px
 }
 
 .recentMessagesDiv {
@@ -379,8 +380,7 @@ span {
 
 textarea {
   height: 70%;
-  /* border: solid 4px rgb(22, 0, 102); */
-  border: none;
+  border: solid 2px #112d4e;
   border-radius: 15px;
   background-color: white;
   resize: none;
@@ -476,8 +476,9 @@ background-color: rgb(177, 231, 177);
 
 .close{
   position: absolute;
-  top: 5px;
+  top: 0;
   right: 10px;
+  font-size: 2rem;
 
 }
 
@@ -502,7 +503,6 @@ background-color: rgb(177, 231, 177);
 
 .alert div {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -511,8 +511,15 @@ background-color: rgb(177, 231, 177);
   background-color: #f9f7f7;
   color: #112d4e;
   margin-top: 40px;
-  
+  font-size:2rem;
+}
 
+.alert div button:first-child {
+  color: #8a2525;
+}
+
+.alert div button:nth-child(2) {
+  color: rgb(21, 156, 21);
 }
 
 footer {
@@ -537,5 +544,37 @@ footer {
 
   to {
     opacity: 1;
+  }
+}
+
+
+/* media queries */
+
+@media (max-width:500px){
+  .chatPageContainer {
+    flex-direction: column;
+  }
+
+  .listOfFriends {
+    
+    width: 100%;
+    order: 2;
+  }
+
+  .recentMessagesDiv, .chatForm {
+    width: 100%;
+  }
+
+  .chatForm {
+    flex-direction: column;
+    padding-top: 10px;
+  }
+
+  .chatForm button {
+    width: initial;
+  }
+
+  textarea {
+    width: 90%;
   }
 }

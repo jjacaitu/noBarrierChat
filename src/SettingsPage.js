@@ -52,7 +52,7 @@ class SettingsPage extends Component {
             <div className="settingsPage">
                 <button className="close" onClick={this.props.closeSettings}><i class="fas fa-times-circle"></i></button>
                 <h2>Settings</h2>
-                <p>Current language is set to: {this.state.currentLanguage}</p>
+                <p>Current language is set to: <span>{ this.state.currentLanguage}</span></p>
                 <p>Changing the language wont translate your old messages, only new messages will be recieved in the new selected language.</p>
                 <form action="" onSubmit={this.applyChange}>
                     <LanguageSelector function={this.languagesSelection} languages={this.props.languages} />

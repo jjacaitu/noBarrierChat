@@ -26,6 +26,10 @@ class ChatForm extends Component {
         dbRef.push(message);
         
         translate(this.state.text,this.props.sender,this.props.reciever,this.props.nickname);
+
+        this.setState({
+            text:""
+        })
     }
 
     handleChange = (event) => {
