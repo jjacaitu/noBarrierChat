@@ -10,6 +10,7 @@ import AlertMessage from "./AlertMessage";
 import Header from "./Header";
 import Footer from "./Footer";
 import SettingsPage from "./SettingsPage";
+import Introduction from "./Introduction";
 
 
 
@@ -30,6 +31,7 @@ class App extends Component {
       settingsStatus: false,
       signInAlert: false,
       verifyAlert: false,
+      introduction:true,
       
     }
   }
@@ -154,15 +156,19 @@ class App extends Component {
         <Header signedIn={this.state.signedIn} onClickFunction={() => {
           this.setState({ settingsStatus: !this.state.settingsStatus })}} />
         <main>
+          {this.state.introduction
+            ?
+            <Introduction functionToClose={() => { this.setState({ introduction: false }) }} />
+            :
+            ""
+
+          }
+          
           {this.state.signedIn
             ?
             <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
             :
             <div className="options">
-
-              <p>Welcome to <span className="logo">Interpreter!</span> The text messaging system with no language barrier!</p>
-                
-              <p>Create an account and select your language, start a conversation with someone by entering their nickname and <em>don't worry about speaking the same language.</em></p>
 
               {this.state.verifyAalert
                 ?
