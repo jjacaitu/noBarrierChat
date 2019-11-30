@@ -8,7 +8,7 @@ class SettingsPage extends Component {
     constructor() {
         super();
         this.state = {
-            language: "english",
+            language: "",
             currentLanguage: "English"
         }
     }
@@ -34,7 +34,9 @@ class SettingsPage extends Component {
     languagesSelection = (event) => {
         this.setState({
             language: event.target.value
+            
         })
+        console.log(event.target.value)
     }
 
     // Funtion to apply changes to firebase database
@@ -48,15 +50,14 @@ class SettingsPage extends Component {
     render() {
         return (
             <div className="settingsPage">
+                <button className="close" onClick={this.props.closeSettings}><i class="fas fa-times-circle"></i></button>
                 <h2>Settings</h2>
                 <p>Current language is set to: {this.state.currentLanguage}</p>
                 <p>Changing the language wont translate your old messages, only new messages will be recieved in the new selected language.</p>
                 <form action="" onSubmit={this.applyChange}>
-                    <LanguageSelector function={this.languageSelection} languages={this.props.languages} />
+                    <LanguageSelector function={this.languagesSelection} languages={this.props.languages} />
                     <SubmitButton label="Apply change"/>
                 </form>
-                
-                
             </div>
         )
         

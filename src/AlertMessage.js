@@ -5,23 +5,16 @@ import firebase from "firebase";
 
 function AlertMessage(props) {
     
-    const close = () => {
-        props.functionToClose();
-        console.log(props);
-    }
 
-    const resendEmail = () => {
-        firebase.auth().currentUser.sendEmailVerification();
-    }
 
     return(
         <div className="alert">
-            <h2>{props.message}</h2>
+            <p>{props.message}</p>
             <div>
-                <button onClick={close}>Ok</button>
-                {props.resend
+    <button onClick={()=>{props.functionToClose()}}>{props.originalLabel}</button>
+                {props.aditionalButton
                     ?
-                    <button onClick={resendEmail}>Resend email</button>
+                <button onClick={props.aditionalFunction}>{props.aditionalLabel}</button>
                     :
                     ""
                 }

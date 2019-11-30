@@ -21,7 +21,7 @@ function Header(props) {
         <header>
             <div className="wrapper">
                 <div className="headerMain">
-                    <h1>No Barriers Chat!</h1>
+                    <h1>Interpreter</h1>
                     {props.signedIn
                         ?
                         <nav>

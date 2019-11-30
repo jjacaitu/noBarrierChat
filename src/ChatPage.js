@@ -5,6 +5,7 @@ import ChatForm from "./ChatForm";
 import RecentMessages from "./RecentMessages";
 import FriendSelector from "./FriendSelector";
 import AddFriendButton from "./AddFriendButton";
+import AlertMessage from "./AlertMessage";
 
 
 
@@ -21,7 +22,9 @@ class ChatPage extends Component {
             friends: [],
             messages: [],
             language: "",
-            userImg: null
+            userImg: null,
+            deleteConfirmation:false,
+            messageToDelete: null
         }
     }
 
@@ -56,7 +59,7 @@ class ChatPage extends Component {
 
                 
 
-                // Rendering informaion on page
+                // Rendering information on page
                 this.setState({
                     friends: openedChats
                 })
@@ -108,14 +111,33 @@ class ChatPage extends Component {
     }
 
     deleteConversation = (indexToDelete) => {
+        const chattingWithUid = this.state.friends[this.state.messageToDelete].uid;
         
-        firebase.database().ref(`${this.state.userId}/chats/${this.state.friends[indexToDelete].uid}`).remove().then(()=>{
+        // Delete thecnversation from both users
+
+        firebase.database().ref(`${this.state.userId}/chats/${chattingWithUid}`).remove().then(()=>{
+            console.log("deleted")
+            
+        });
+
+        firebase.database().ref(`${chattingWithUid}/chats/${this.state.userId}`).remove().then(()=>{
             console.log("deleted");
         });
 
-        firebase.database().ref(`${this.state.friends[indexToDelete].uid}/chats/${this.state.userId}`).remove().then(()=>{
-            console.log("deleted");
-        });
+        // We make sure that f the user deleted the conversation that was selected then the "no chat has been selected message shows" by changing the state.
+
+        if (chattingWithUid === this.state.chattingWithUid) {
+            this.setState({
+                chattingWithName: null,
+                chattingWithUid: null,
+                deleteConfirmation: false
+            })
+
+        }else{
+            this.setState({
+                deleteConfirmation: false
+            })
+        }
     }
     
         
@@ -125,7 +147,18 @@ class ChatPage extends Component {
                 
                 
                 <div className="chatPageContainer">
-
+                    {
+                        this.state.deleteConfirmation
+                            ?
+                            
+                            <AlertMessage functionToClose={()=>{this.setState({
+                                deleteConfirmation:false
+                            })}} message="Are you sure you want to delete your conversation?" originalLabel="Nevermind" aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel="Confirm"/>
+                            :
+                            ""
+                    
+                    
+                    }           
                     
                     
                     <div className="listOfFriends">
@@ -139,7 +172,10 @@ class ChatPage extends Component {
                         <ul>
                             {this.state.friends.map((friend, index) => {
                                 return (
-                                    <FriendSelector key={index} uid={friend.uid} name={friend.name} imgUrl={friend.imgUrl ? friend.imgUrl : null} userNickname={this.state.userNickname} function={this.select} index={index} deleteFunction={this.deleteConversation}/>
+                                    <FriendSelector key={index} uid={friend.uid} name={friend.name} imgUrl={friend.imgUrl ? friend.imgUrl : null} userNickname={this.state.userNickname} function={this.select} index={index} deleteFunction={(e)=>{this.setState({
+                                        messageToDelete:e.currentTarget.value,
+                                        deleteConfirmation:true
+                                    })}}/>
                                 )
                             })}
 
@@ -150,7 +186,7 @@ class ChatPage extends Component {
                             ?
                             ""
                             :
-                            <h3>{`Hi ${this.props.name}! Start chatting without worrying about language barrier! `}</h3>
+                            <h3>{`Hi`} <span>{this.props.name}</span>{`! Start chatting without worrying about language barrier! `}</h3>
                             }
                         
                         <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} userImg={this.state.userImg} />

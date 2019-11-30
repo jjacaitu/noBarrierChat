@@ -24,11 +24,13 @@ class App extends Component {
       name: null,
       language: null,
       verified: null,
-      alert: false,
       optionSelected: "signIn",
       friendsVisible: false,
       languagesList: ["english"],
-      settingsStatus: false
+      settingsStatus: false,
+      signInAlert: false,
+      verifyAlert: false,
+      
     }
   }
 
@@ -49,7 +51,7 @@ class App extends Component {
         
       }else if(user && !user.emailVerified && user.email){
         this.setState({
-          alert: true
+          verifyAlert: true
         })
         // In case the user sign in as guest
       } else if (user && user.email === null) {
@@ -131,27 +133,17 @@ class App extends Component {
 
   closeAlert = () => {
     this.setState({
-      alert: false
+      verifyAlert: false
     })
-
-    
   }
 
-  // selectOption = (event) => {
-  //   this.setState({
-  //     optionSelected:event.target.value
-  //   })
-  // }
+  closeSignInAlert = () => {
+    this.setState({
+      signInAlert: false
+    })
+  }
 
-  // settings = () => {
-    
-    
-  //     this.setState({
-  //       settingsStatus: !this.state.settingsStatus
-  //     })
-      
-      
-  // }
+  
 
   render() {
 
@@ -166,9 +158,17 @@ class App extends Component {
             <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
             :
             <div className="options">
-              {this.state.alert
+              {this.state.verifyAalert
                 ?
-                <AlertMessage functionToClose={this.closeAlert} message="Please verify your email and refresh after!" resend={true} />
+                <AlertMessage functionToClose={this.closeAlert} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
+                :
+                ""
+              }
+
+
+              {this.state.signInAlert
+                ?
+                <AlertMessage functionToClose={this.closeSignInAlert} message="You have entered an incorrect email or password!" aditionalButton={false} originalLabel="Ok" />
                 :
                 ""
               }
@@ -180,7 +180,9 @@ class App extends Component {
 
               {this.state.optionSelected === "signIn"
                 ?
-                <SignInPage getLanguage={this.getLanguage} />
+                <SignInPage getLanguage={this.getLanguage} signInAlert={()=>{this.setState({
+                  signInAlert:true
+                })}} />
                 :
                 this.state.optionSelected === "signUp"
                   ?
@@ -195,7 +197,9 @@ class App extends Component {
                 
           {this.state.settingsStatus && this.state.signedIn
             ?
-            <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language}/>
+            <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language} closeSettings={() => {
+              this.setState({ settingsStatus: !this.state.settingsStatus })
+            }}/>
             :
             ""
           }

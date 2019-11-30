@@ -9,10 +9,10 @@ function FriendSelector(props) {
         props.function(event.currentTarget.value, event.currentTarget.id);
     }
 
-    const deleteConversation = (event) => {
+    // const deleteConversation = (event) => {
        
-        props.deleteFunction(event.currentTarget.value);
-    }
+    //     props.deleteFunction(event.currentTarget.value);
+    // }
 
     return (
         <li className="friendButton">
@@ -25,7 +25,7 @@ function FriendSelector(props) {
             } 
                 <p>{props.name}</p>
             </button>
-            <button className="deleteButton" onClick={deleteConversation} value={props.index}><i className="fas fa-trash-alt"></i></button>
+            <button className="deleteButton" onClick={props.deleteFunction} value={props.index}><i className="fas fa-trash-alt"></i></button>
             
         </li>
     )

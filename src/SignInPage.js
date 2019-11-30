@@ -26,6 +26,7 @@ class SignInPage extends Component{
     
     
     signIn = (event) => {
+        const functionToCall = this.props.signInAlert;
         event.preventDefault();
         
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((result) => {
@@ -37,6 +38,8 @@ class SignInPage extends Component{
             
         }).catch(function (error) {
             // Handle Errors here.
+            // this.props.signInAlert();
+            functionToCall();
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode);
@@ -46,11 +49,15 @@ class SignInPage extends Component{
     }
 
     recoverPassword = (event) => {
+
+        
+
         event.preventDefault();
-        firebase.auth().sendPasswordResetEmail(this.state.emailToRecover).then(function () {
+        firebase.auth().sendPasswordResetEmail(this.state.emailToRecover).then( () => {
             this.setState({
-                emilSent: true
+                emailSent: true
             })
+            
         }).catch(function (error) {
             // An error happened.
         });
