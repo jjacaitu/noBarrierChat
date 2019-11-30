@@ -52,12 +52,14 @@ button {
 }
 
 
+
+
 header {
   
   /* background-color: rgb(20, 26, 119); */
   background-color: #dbe2ef;
   margin-bottom: 40px;
-  padding: 30px 0;
+  padding: 30px 0 0;
   min-height: 7vh;
   color: white;
   border-bottom: solid 5px #112d4e;
@@ -70,6 +72,7 @@ header {
   align-items: center;
   flex-direction: column;
   
+  
 }
 
 nav {
@@ -77,6 +80,21 @@ nav {
   display: flex;
   color: #112d4e;
   justify-content: space-around;
+}
+
+nav button {
+  position: relative;
+}
+
+nav button i{
+  transition: all 0.5s;
+  padding-left: 5px;
+  
+}
+
+nav button:hover i, nav button:focus i{
+  transform: scale(1.5);
+  color: #ff4343;
 }
 
 h1 {
@@ -89,6 +107,7 @@ h1 {
   /* background-image: linear-gradient(to bottom right, #f9f7f7 , #112d4e ); */
   border-radius: 20px;
   padding: 10px 25px;
+  margin-bottom: 30px;
   
 
   font-family: 'Berkshire Swash', cursive;
@@ -107,6 +126,8 @@ h1:after{
   bottom: -20px;
   z-index: -1;
 }
+
+
 
 main {
   background-color: #f9f7f7;
@@ -135,6 +156,10 @@ span {
   color: #ff4343;
 }
 
+em {
+  text-decoration: underline #112d4e;
+}
+
 .wrapper {
   max-width: 1400px;
   width: 80%;
@@ -153,7 +178,12 @@ span {
   justify-content: center;
   align-items: center;
   width: 40%;
+  min-width: 530px;
   
+}
+
+.options p{
+  padding-bottom: 10px;
 }
 
 .optionsButtons {
@@ -166,10 +196,40 @@ span {
   background-color: transparent;
   color: #112d4e;
   border: none;
-  text-decoration: underline #ff4343;
-  
+  /* text-decoration: underline #ff4343; */
+  position: relative;
   
 }
+
+.optionsButtons button:focus {
+  border: solid 1px #112d4e;
+  
+}
+
+
+
+  .optionsButtons button::after, .signIn button:nth-of-type(1)::after, nav button::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 5%;
+    background-color: #ff4343;
+    border-radius: 30px;
+    bottom: 10%;
+    left: 17.5%;
+    z-index: 8;
+    transition: all 0.5s;
+  }
+
+  .optionsButtons button:disabled::after {
+    width: 65%;
+  }
+
+  .optionsButtons button:hover::after, .optionsButtons button:focus::after, .signIn button:nth-of-type(1):hover::after, .signIn button:focus::after, nav button:hover::after,nav button:focus::after {
+    width: 65%;
+  }
+
+  
 
 .optionsButtons .inactive {
   opacity: 0.6;
@@ -197,6 +257,7 @@ span {
   animation: appear 0.5s both 1;
   box-shadow: 0px 0px 20px #112d4e;
   padding: 20px;
+  
 }
 
 .signIn form {
@@ -204,24 +265,20 @@ span {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 100%; */
 }
 
-/* Sign up page */
-
-.signUp{
-  
+.signIn button {
+  position: relative;
 }
 
-/* Guest signin page */
-
-.guestSignIn {
-  
-
+.signIn button:focus {
+  border: solid 1px #112d4e;
 }
+
 
 .guestSignIn p {
   width: 80%;
+  padding-bottom: 15px;
 }
 
 .recoverPassword {
@@ -297,6 +354,11 @@ span.logo {
   align-items: center;
 }
 
+.friendButton button:hover, .friendButton button:focus {
+  animation: pulse both ease-in-out 1s infinite;
+  
+}
+
 .friendButton img {
   
   width: 50%;
@@ -321,10 +383,10 @@ span.logo {
   transition: all 0.5s;
 }
 
-.messagesAndTextContainer p  {
+.messagesAndTextContainer>p  {
   text-align: center;
   color: #112d4e;
-  padding-left: 20px;
+  padding-left: 30px;
   /* padding-bottom:20px */
 }
 
@@ -345,7 +407,7 @@ span.logo {
 
 .chatHeader {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   background-color: #3f72af;
   padding: 10px;
@@ -377,7 +439,7 @@ span.logo {
   height: 60vh;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   border-radius: 0 0 15px 15px;
   background-color: white;
   padding: 10px;
@@ -398,6 +460,8 @@ span.logo {
   border: solid 5px #112d4e;
   margin: 20px 0;
   box-shadow: 0px 0px 5px #dbe2ef;
+  margin-left: 40px;
+  
 }
 
 textarea {
@@ -426,6 +490,10 @@ textarea:disabled {
   background-color: #ff4343;
   color: #f9f7f7;
   align-self: center;
+}
+
+.submitButton:hover, .submitButton:focus {
+  box-shadow: 10px 10px #112d4e;
 }
 
 .sent, .recieved {
@@ -475,6 +543,7 @@ background-color: rgb(177, 231, 177);
   font-size: 0.8rem;
   padding-bottom: 0;
   align-items: center;
+  
 }
 
 /* Settings page */
@@ -578,12 +647,23 @@ footer {
   }
 }
 
+@keyframes pulse {
+  50%{
+    transform: scale(1.2);
+  }
+}
+
 
 /* media queries */
 
 @media (max-width: 875px){
   .wrapper {
     width: 90%;
+  }
+
+  .options {
+    width: 85%;
+    min-width: initial;
   }
 
   .chatPageContainer {
@@ -631,14 +711,13 @@ footer {
 
   
 
-  .options {
-    width: 85%;
-  }
+  
 
   .optionsButtons {
-    
     width: 100%;
   }
+
+  
 
   .optionsButtons button {
     font-size: 0.8rem;

@@ -75,7 +75,7 @@ class App extends Component {
 
 
       } else {
-        // console.log(user);
+        
         this.setState({
           signedIn: false,
           userId: null
@@ -132,6 +132,7 @@ class App extends Component {
   }
 
   closeAlert = () => {
+    
     this.setState({
       verifyAlert: false
     })
@@ -158,6 +159,11 @@ class App extends Component {
             <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
             :
             <div className="options">
+
+              <p>Welcome to <span className="logo">Interpreter!</span> The text messaging system with no language barrier!</p>
+                
+              <p>Create an account and select your language, start a conversation with someone by entering their nickname and <em>don't worry about speaking the same language.</em></p>
+
               {this.state.verifyAalert
                 ?
                 <AlertMessage functionToClose={this.closeAlert} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
@@ -173,9 +179,9 @@ class App extends Component {
                 ""
               }
               <div className="optionsButtons">
-                <button onClick={(e) => this.setState({optionSelected: e.target.value})} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"}>Sign In</button>
-                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"}>Sign Up</button>
-                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"}>Guest Sign In</button>
+                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"} disabled={this.state.optionSelected === "signIn" ? true : false}>Sign In</button>
+                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"} disabled={this.state.optionSelected === "signUp" ? true : false}>Sign Up</button>
+                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"} disabled={this.state.optionSelected === "guestSignIn" ? true : false}>Guest Sign In</button>
               </div>
 
               {this.state.optionSelected === "signIn"

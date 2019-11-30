@@ -25,8 +25,9 @@ function Header(props) {
                     {props.signedIn
                         ?
                         <nav>
-                            <button onClick={signOut}>Sign Out</button>
-                            <button onClick={callSettings}>Settings</button>
+                            <button onClick={signOut}>Sign Out <i class="fas fa-sign-out-alt"></i></button>
+                            <button onClick={callSettings}>Settings <i class="fas fa-cogs"></i></button>
+                            
                         </nav>
                         :
                         ""

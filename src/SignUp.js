@@ -75,8 +75,8 @@ class SignUp extends Component{
 
         }).catch(function (error) {
             // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            
+            const errorMessage = error.message;
             console.log(errorMessage);
             // ...
         });

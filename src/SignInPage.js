@@ -38,12 +38,9 @@ class SignInPage extends Component{
             
         }).catch(function (error) {
             // Handle Errors here.
-            // this.props.signInAlert();
+            
             functionToCall();
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
+            
             // ...
         });
     }

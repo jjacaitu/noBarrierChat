@@ -53,7 +53,7 @@ class ChatPage extends Component {
                 const openedChats = [];
                 
                 for (let chat in openedChatsData) {
-                    console.log(openedChatsData[chat])
+                    
                     openedChats.push({ uid: chat, name: openedChatsData[chat].nickname, });
                 }
 
@@ -89,7 +89,7 @@ class ChatPage extends Component {
                     messages.push(messagesData);
                 }
 
-                console.log(messages);
+                
 
             }
             
@@ -103,7 +103,7 @@ class ChatPage extends Component {
                 language:"",
             })
         }
-        console.log(`${this.state.userId}/${uid}`);
+        
         const dbRef = firebase.database().ref(`${this.state.userId}/chats/${uid}/messages`);
         dbRef.off("value", handle);
         dbRef.on("value", handle);
@@ -116,12 +116,12 @@ class ChatPage extends Component {
         // Delete thecnversation from both users
 
         firebase.database().ref(`${this.state.userId}/chats/${chattingWithUid}`).remove().then(()=>{
-            console.log("deleted")
+            
             
         });
 
         firebase.database().ref(`${chattingWithUid}/chats/${this.state.userId}`).remove().then(()=>{
-            console.log("deleted");
+            
         });
 
         // We make sure that f the user deleted the conversation that was selected then the "no chat has been selected message shows" by changing the state.
@@ -153,10 +153,12 @@ class ChatPage extends Component {
                             
                             <AlertMessage functionToClose={()=>{this.setState({
                                 deleteConfirmation:false
-                            })}} message="Are you sure you want to delete your conversation?" originalLabel={<i class="fas fa-times-circle iconButton deny"></i>} aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel={<i class="fas fa-check-circle accept"></i>}/>
+                            })
+                            }} message="Are you sure you want to delete your conversation?" originalLabel={<i class="fas fa-times-circle iconButton deny"></i>} aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel={<i class="fas fa-check-circle accept"></i>} />
+                            
                             :
+
                             ""
-                    
                     
                     }           
                     
@@ -172,7 +174,7 @@ class ChatPage extends Component {
                         <ul>
                             {this.state.friends.map((friend, index) => {
                                 return (
-                                    <FriendSelector key={index} uid={friend.uid} name={friend.name} imgUrl={friend.imgUrl ? friend.imgUrl : null} userNickname={this.state.userNickname} function={this.select} index={index} deleteFunction={(e)=>{this.setState({
+                                    <FriendSelector key={friend.uid} uid={friend.uid} name={friend.name} imgUrl={friend.imgUrl ? friend.imgUrl : null} userNickname={this.state.userNickname} function={this.select} index={index} deleteFunction={(e)=>{this.setState({
                                         messageToDelete:e.currentTarget.value,
                                         deleteConfirmation:true
                                     })}}/>

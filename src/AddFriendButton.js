@@ -8,7 +8,7 @@ class AddFriendButton extends Component {
     constructor() {
         super();
         this.state = {
-            nickname:null,
+            nickname:"",
             openedChats: [],
             error: false,
             errorMessage:""
@@ -43,7 +43,7 @@ class AddFriendButton extends Component {
     
     addFriend = (event) => {
         event.preventDefault()
-        const userList = [];
+        
         const usersId = []
 
         // Checking if theres no opened conversations opened with that user and that the user isnt trying to start a conversation with itself

@@ -8,8 +8,8 @@ function LanguageSelector(props){
         <div>
             <label htmlFor="language">Select your language:  </label>
             <select name="language" id="language" onChange={props.function} required>
-                {props.languages.map((language) => {
-                    return <option id={language.name} value={language.code} selected={language.name === "English" ? "selected" : ""}>{language.name} </option>
+                {props.languages.map((language, index) => {
+                    return <option key={index} id={language.name} value={language.code} selected={language.name === "English" ? "selected" : ""}>{language.name} </option>
                 })}
             </select>
         </div>

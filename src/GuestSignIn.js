@@ -62,16 +62,15 @@ class GuestSignUp extends Component {
 
                 }).catch(function (error) {
                     // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
+                    
+                    const errorMessage = error.message;
                     console.log(errorMessage);
                     // ...
                 });
             })
             .catch(function (error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
+                
             });
 
 
@@ -98,8 +97,9 @@ class GuestSignUp extends Component {
         return (
 
             <form className="guestSignIn" action="" onSubmit={this.signInGuest}>
-                <h2>Sign up Guest</h2>
-                <p>Signing in as a guest means you wont be able to select your nickname and will only be able to  get access to your conversations while logged in. If your refresh the page you will automatically logged out.</p>
+                <h2>Sign up as Guest</h2>
+                <p>Signing in as a guest means you won't be able to select your nickname and will only be able to  get access to your conversations while logged in. If your refresh the page you will automatically logged out.</p>
+                <p>When you log In you will recieve your guest name, use this to connect with other users. </p>
                 <LanguageSelector languages={this.props.languages} function={this.getLanguage} />
                 <SubmitButton label="Sign in" />
                 
