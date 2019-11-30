@@ -119,7 +119,7 @@ class AddFriendButton extends Component {
                         } else if (index === (values.length - 1) && !found) {
                            console.log(found)
                             this.setState({
-                                errorMessage: `${this.state.nickname} doesn't have an account!`,
+                                errorMessage: `Looks like ${this.state.nickname} doesn't have an account with us!`,
                                 error: true
                             });
                         }
@@ -155,7 +155,7 @@ class AddFriendButton extends Component {
             <div>
                 {this.state.error
                     ?
-                    <AlertMessage message={this.state.errorMessage} functionToClose={this.closeAlert} resend={false}/>
+                    <AlertMessage message={this.state.errorMessage} functionToClose={this.closeAlert} originalLabel="Ok" resend={false}/>
                     :
                     ""
                 }

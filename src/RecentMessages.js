@@ -29,7 +29,7 @@ function RecentMessages(props) {
                         return (
                             <li key={index} className={message.type} >
                                 <p className="time">{message.time}</p>
-                                <p>{message.message}</p>
+                                <p className="message">{message.message}</p>
                             </li>
                         )
                     })

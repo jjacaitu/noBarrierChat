@@ -33,10 +33,11 @@ img {
 input, select {
   margin: 20px;
   font-size: 0.8rem;
-  width: 50%;
+  /* width: 50%; */
   padding-left: 10px;
   border-radius: 10px;
   border: solid 1px #112d4e;
+  margin: 10px 0;
   
 }
 
@@ -91,8 +92,6 @@ h1 {
   
 
   font-family: 'Berkshire Swash', cursive;
-
-    
 
 
 }
@@ -238,10 +237,18 @@ span {
   animation: appear 0.5s both 1;
 }
 
+span.logo {
+  font-family: 'Berkshire Swash', cursive;
+  color: #ff4343;
+  text-decoration: #112d4e underline;
+  font-size: 1.2rem;
+}
+
 .listOfFriends {
   display: flex;
   flex-direction: column;
   width:25%;
+  min-width: 250px;
   padding: 20px;
   background-color: #dbe2ef;
   height: 80%;
@@ -275,6 +282,8 @@ span {
   background-color: white;
   border-radius: 20px;
   color: #112d4e;
+  flex-wrap: wrap;
+  min-width: 80px;
 
 }
 
@@ -305,21 +314,32 @@ span {
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
+  text-align: center;
   align-items: center;
+  
   
   transition: all 0.5s;
 }
 
-.messagesAndTextContainer p {
+.messagesAndTextContainer p  {
   text-align: center;
   color: #112d4e;
-  padding-bottom:20px
+  padding-left: 20px;
+  /* padding-bottom:20px */
+}
+
+.messagesAndTextContainer .message{
+  text-align: start;
 }
 
 .recentMessagesDiv {
   width: 60%;
   border-radius: 20px;
   box-shadow: 0px 0px 5px #dbe2ef;
+  margin-top: 20px;
+  min-width: 420px;
+  margin-left: 40px;
+  
   
 }
 
@@ -346,6 +366,7 @@ span {
   width: 10%;
   border-radius: 50%;
   padding: 5px;
+  min-width: 70px;
   
 }
 
@@ -368,13 +389,14 @@ span {
 .chatForm {
   display: flex;
   width: 60%;
+  min-width: 420px;
   max-height: 180px;
   justify-content: center;
   align-items: center;
   background-color: #f9f7f7;
   border-radius: 20px;
   border: solid 5px #112d4e;
-  margin-top: 20px;
+  margin: 20px 0;
   box-shadow: 0px 0px 5px #dbe2ef;
 }
 
@@ -451,6 +473,8 @@ background-color: rgb(177, 231, 177);
 .time {
   color: rgb(63, 63, 63);
   font-size: 0.8rem;
+  padding-bottom: 0;
+  align-items: center;
 }
 
 /* Settings page */
@@ -479,6 +503,7 @@ background-color: rgb(177, 231, 177);
   top: 0;
   right: 10px;
   font-size: 2rem;
+  color: #ff4343;
 
 }
 
@@ -499,6 +524,9 @@ background-color: rgb(177, 231, 177);
   z-index: 5;
   border: solid 5px #112d4e;
   min-height: 40vh;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .alert div {
@@ -511,15 +539,18 @@ background-color: rgb(177, 231, 177);
   background-color: #f9f7f7;
   color: #112d4e;
   margin-top: 40px;
+  font-size:1.5rem;
+  
+}
+
+.alert .deny {
+  color: #8a2525;
   font-size:2rem;
 }
 
-.alert div button:first-child {
-  color: #8a2525;
-}
-
-.alert div button:nth-child(2) {
+.alert .accept {
   color: rgb(21, 156, 21);
+  font-size:2rem;
 }
 
 footer {
@@ -531,7 +562,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5vh;
+  min-height: 5vh;
 }
 
 
@@ -550,9 +581,17 @@ footer {
 
 /* media queries */
 
-@media (max-width:500px){
+@media (max-width: 875px){
+  .wrapper {
+    width: 90%;
+  }
+
   .chatPageContainer {
     flex-direction: column;
+  }
+
+  .recentMessagesDiv {
+    margin-left: 0;
   }
 
   .listOfFriends {
@@ -561,9 +600,73 @@ footer {
     order: 2;
   }
 
-  .recentMessagesDiv, .chatForm {
+  .addFriendBar input {
+    width: 60%;
+  }
+
+  .friendButton .deleteButton {
+    margin-top: 10px;
+  }
+
+  .friendButton {
+    flex-direction: column;
+    width: calc(100%/5);
+    padding: 10px 0;
+  }
+
+  .friendButton img {
     width: 100%;
   }
+
+
+  .settingsPage, .alert {
+    width: 80%;
+    position: fixed;
+  }
+
+  
+}
+
+@media (max-width:500px){
+
+  
+
+  .options {
+    width: 85%;
+  }
+
+  .optionsButtons {
+    
+    width: 100%;
+  }
+
+  .optionsButtons button {
+    font-size: 0.8rem;
+  }
+
+  .guestSignIn p{
+    font-size: 0.8rem;
+  }
+
+  input, select {
+    width: 100%;
+  }
+
+  .friendButton .deleteButton {
+    font-size: 1.5rem;
+  }
+
+  
+
+  .recentMessagesDiv, .chatForm {
+    width: 100%;
+    min-width: initial;
+  }
+
+  .sent,.recieved {
+    max-width: 90%;
+  }
+
 
   .chatForm {
     flex-direction: column;
@@ -576,5 +679,15 @@ footer {
 
   textarea {
     width: 90%;
+    height: 70%;
+  }
+
+  footer {
+    font-size: 0.8rem;
+  }
+
+  .settingsPage, .alert {
+    width: 90%;
+    font-size: 0.8rem;
   }
 }
