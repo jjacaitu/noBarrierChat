@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "61d19599d1c1c856040b16d03d3a47f8",
+    "revision": "1faff7f391c02f7aa278162de12560d5",
     "url": "/noBarrierChat/index.html"
   },
   {
-    "revision": "3f579e26fac7da31ddc1",
-    "url": "/noBarrierChat/static/css/main.44837c16.chunk.css"
+    "revision": "fabc4b16ccc75941f881",
+    "url": "/noBarrierChat/static/css/main.7c52f5fb.chunk.css"
   },
   {
     "revision": "fabecc687b4c26c8f0cd",
     "url": "/noBarrierChat/static/js/2.cff5af24.chunk.js"
   },
   {
-    "revision": "3f579e26fac7da31ddc1",
-    "url": "/noBarrierChat/static/js/main.4e833adb.chunk.js"
+    "revision": "fabc4b16ccc75941f881",
+    "url": "/noBarrierChat/static/js/main.c851ffd3.chunk.js"
   },
   {
     "revision": "1c0361805bbf3aab7de8",

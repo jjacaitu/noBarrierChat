@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/noBarrierChat/precache-manifest.7e6b29e35710787a6b05ca512f5e8c27.js"
+  "/noBarrierChat/precache-manifest.9a6ebc608d66a5cd21ff35af43ed4fa1.js"
 );
 
 self.addEventListener('message', (event) => {
