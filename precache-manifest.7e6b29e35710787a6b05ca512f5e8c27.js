@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "14140b4908d4af19bb372689c08aeb4c",
+    "revision": "61d19599d1c1c856040b16d03d3a47f8",
     "url": "/noBarrierChat/index.html"
   },
   {
