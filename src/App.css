@@ -552,6 +552,8 @@ textarea {
   resize: none;
   width: 60%;
   padding: 10px;
+  max-height: 150px;
+  margin-bottom: 10px;
   
 }
 

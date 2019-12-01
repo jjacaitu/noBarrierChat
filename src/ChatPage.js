@@ -110,8 +110,6 @@ class ChatPage extends Component {
                     messages.push(messagesData);
                 }
 
-                
-
             }
             
 
@@ -123,6 +121,9 @@ class ChatPage extends Component {
                 chattingWithUid: uid,
                 language:"",
             })
+
+            const bottomOfMessages = document.getElementById("bottom");
+            bottomOfMessages.scrollIntoView(false);
         }
         
         const dbRef = firebase.database().ref(`${this.state.userId}/chats/${uid}/messages`);

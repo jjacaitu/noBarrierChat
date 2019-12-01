@@ -39,6 +39,7 @@ function RecentMessages(props) {
                         )
                     })
                 }
+                <li id="bottom"></li>
             </ul>
         </div>
     )
