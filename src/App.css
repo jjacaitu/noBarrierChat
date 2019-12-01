@@ -513,6 +513,20 @@ span.logo {
   
 }
 
+.giphyDiv i {
+  padding-left: 5px;
+  transition: all 0.5s;
+}
+
+.giphyDiv button:enabled:hover i, .giphyDiv button:enabled:focus i{
+  color: #ff4343;
+  transform: scale(1.5);
+}
+
+.giphyDiv button:enabled:focus {
+  border: solid 2px #112d4e;
+}
+
 .gifSearch div {
   display: flex;
   justify-content: space-around;
@@ -616,6 +630,7 @@ background-color: rgb(177, 231, 177);
 
 .settingsPage {
   position: absolute;
+  z-index: 9;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -833,7 +848,6 @@ footer {
 
   textarea {
     width: 90%;
-    height: 70%;
     margin-left: 10px;
   }
 

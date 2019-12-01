@@ -18,7 +18,7 @@ class GiphSearch extends Component{
     componentDidMount() {
         axios({
             
-            url: "http://api.giphy.com/v1/gifs/trending",
+            url: "//api.giphy.com/v1/gifs/trending",
             responseType: `json`,
             method: `get`,
             params: {
@@ -41,7 +41,7 @@ class GiphSearch extends Component{
         e.preventDefault();
 
         axios({
-            url: `http://api.giphy.com/v1/gifs/search`,
+            url: `//api.giphy.com/v1/gifs/search`,
             responseType: `json`,
             method: `get`,
             params: {

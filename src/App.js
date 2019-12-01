@@ -165,7 +165,7 @@ class App extends Component {
 
                   {this.state.verifyAlert
                     ?
-                    <AlertMessage title="An email has been sent to you!" functionToClose={()=>{this.setState({verifyAlert:false})}} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
+                    <AlertMessage title="An email has been sent to you!" functionToClose={()=>{this.setState({verifyAlert:false})}} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={false} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
                     :
                     ""
                   }

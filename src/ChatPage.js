@@ -57,12 +57,33 @@ class ChatPage extends Component {
                     openedChats.push({ uid: chat, name: openedChatsData[chat].nickname, });
                 }
 
+                // Look if the opened chat is still opened by the other user
+
+                let found = false
+
+                openedChats.forEach((chat) => {
+                    if (chat.uid === this.state.chattingWithUid) {
+                        found = true;
+                    }
+                })
+
                 
 
-                // Rendering information on page
-                this.setState({
-                    friends: openedChats
-                })
+                if (found) {
+                    // If it is opened then just update the conversations that are opened
+                    this.setState({
+                        friends: openedChats
+                    })
+                } else {
+                    // If its not opened then set the chatting with information to null
+                    this.setState({
+                        friends: openedChats,
+                        chattingWithName: null,
+                        chattingWithUid: null
+                    })
+                }
+
+                
 
             })
 

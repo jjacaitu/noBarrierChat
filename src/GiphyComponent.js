@@ -17,8 +17,8 @@ class GiphyComponent extends Component {
 
         return (
             <div className="giphyDiv">
-                <button disabled={this.props.chatting?false:true} onClick={() => { this.setState({ giphyOpen: !this.state.giphyOpen }) }}>GIPHY <i className="fas fa-image"></i></button>
-                {this.state.giphyOpen
+                <button disabled={this.props.chatting?false:true} onClick={() => { this.setState({ giphyOpen: !this.state.giphyOpen }) }}>Add Gif <i className="fas fa-image"></i></button>
+                {this.state.giphyOpen && this.props.chatting
                     ?
                     <GiphSearch sender={this.props.sender} reciever={this.props.reciever}/>
                     :
