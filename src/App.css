@@ -152,6 +152,12 @@ h3 {
   text-align: center;
 }
 
+h4 {
+  color: #dbe2ef;
+  text-shadow: 2px 2px #112d4e;
+  text-transform: uppercase;
+}
+
 span {
   color: #ff4343;
 }
@@ -171,18 +177,16 @@ em {
 }
 
 .introduction {
-  position: fixed;
-  background-color: #dbe2ef;
+  
+  background-color: #f9f7f7;
   border: solid 5px #112d4e;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  width: 50%;
+  z-index: 9;
   box-shadow: 0px 0px 10px #ff4343;
   padding: 50px;
+}
+
+.introduction p:first-child {
+  text-align: center;
 }
 
 .introduction p {
@@ -337,6 +341,11 @@ span.logo {
   transition: all 0.5s;
 }
 
+.listOfFriends ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .addFriendBar {
   padding-bottom: 20px;
   text-align: center;
@@ -361,6 +370,7 @@ span.logo {
   color: #112d4e;
   flex-wrap: wrap;
   min-width: 80px;
+  margin-top: 10px;
 
 }
 
@@ -599,23 +609,30 @@ background-color: rgb(177, 231, 177);
 
 /* Alert message */
 
-.alert {
-  position: absolute;
+.alert, .introduction {
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ff4343;
-  color: #f9f7f7;
   display: flex;
   flex-direction: column;
-  padding: 50px 30px;
   border-radius: 20px;
-  z-index: 5;
+  z-index: 9;
   border: solid 5px #112d4e;
   min-height: 40vh;
-  text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+.alert {
+  background-color: #ff4343;
+  color: #f9f7f7;
+  padding: 50px 30px;
+  text-align: center;
+}
+
+.alert button:hover, .alert button:focus {
+  box-shadow: 10px 10px #112d4e;
 }
 
 .alert div {
@@ -681,7 +698,7 @@ footer {
     width: 90%;
   }
 
-  .options {
+  .options, .introduction {
     width: 85%;
     min-width: initial;
   }
@@ -690,7 +707,7 @@ footer {
     flex-direction: column;
   }
 
-  .recentMessagesDiv {
+  .recentMessagesDiv, .chatForm {
     margin-left: 0;
   }
 
@@ -706,12 +723,14 @@ footer {
 
   .friendButton .deleteButton {
     margin-top: 10px;
+    
   }
 
   .friendButton {
     flex-direction: column;
-    width: calc(100%/5);
+    width: calc((100%/5) - 10px);
     padding: 10px 0;
+    margin-right: 10px;
   }
 
   .friendButton img {
@@ -728,10 +747,6 @@ footer {
 }
 
 @media (max-width:500px){
-
-  
-
-  
 
   .optionsButtons {
     width: 100%;
@@ -785,7 +800,7 @@ footer {
     font-size: 0.8rem;
   }
 
-  .settingsPage, .alert {
+  .settingsPage, .alert, .introduction {
     width: 90%;
     font-size: 0.8rem;
   }

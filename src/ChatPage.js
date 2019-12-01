@@ -28,7 +28,7 @@ class ChatPage extends Component {
         }
     }
 
-  
+      
 
     componentDidMount() {
         
@@ -151,10 +151,10 @@ class ChatPage extends Component {
                         this.state.deleteConfirmation
                             ?
                             
-                            <AlertMessage functionToClose={()=>{this.setState({
+                            <AlertMessage title="Please confirm before proceeding!" functionToClose={()=>{this.setState({
                                 deleteConfirmation:false
                             })
-                            }} message="Are you sure you want to delete your conversation?" originalLabel={<i class="fas fa-times-circle iconButton deny"></i>} aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel={<i class="fas fa-check-circle accept"></i>} />
+                            }} message="Are you sure you want to delete your conversation?" originalLabel={<i className="fas fa-times-circle iconButton deny" aria-label="Deny delete option"></i>} aditionalButton={true} aditionalFunction={this.deleteConversation} aditionalLabel={<i className="fas fa-check-circle accept" aria-label="Confirm delete option"></i>} />
                             
                             :
 

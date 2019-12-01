@@ -8,7 +8,7 @@ class SettingsPage extends Component {
     constructor() {
         super();
         this.state = {
-            language: "",
+            language: "en",
             currentLanguage: "English"
         }
     }
@@ -52,7 +52,7 @@ class SettingsPage extends Component {
     render() {
         return (
             <div className="settingsPage">
-                <button className="close" onClick={this.props.closeSettings}><i class="fas fa-times-circle"></i></button>
+                <button className="close" onClick={this.props.closeSettings}><i className="fas fa-times-circle" aria-label="Close settings"></i></button>
                 <h2>Settings</h2>
                 <p>Current language is set to: <span>{ this.state.currentLanguage}</span></p>
                 <p>Changing the language won't translate your old messages, only new messages will be recieved in the new selected language.</p>

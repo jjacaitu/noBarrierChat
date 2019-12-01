@@ -18,7 +18,7 @@ class SignUp extends Component{
     }
 
     getLanguage = (event) => {
-        console.log(event.target.value);
+        
         this.setState({
             language: event.target.value,
             
@@ -30,56 +30,89 @@ class SignUp extends Component{
     createUser = (event) => {
         event.preventDefault();
 
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((result) => {
+        const functionToCallAlert = this.props.signUpAlert;
+        const nickname = this.state.name;
+        const nicknameFirstFiveLetters = nickname.toLowerCase().substring(0, 5);;
 
-            // make sure the user can not start with guest if using nickname to store chats
-
-            const data = {
-                
-                    "chats": false,
-                    "settings": {
-                        "language": this.state.language,
-                        "nickname": this.state.name,
-                        "email": this.state.email,
+        if (nicknameFirstFiveLetters === "guest") {
+            functionToCallAlert();
+        } else {
+            
+            
+            const databaseRef = firebase.database().ref();
+    
+            databaseRef.once("value").then((snapshot) => {
+    
+                const databaseData = snapshot.val()
+                const arrayPromises = []
+                for (let user in databaseData) {
+                    if (user !== "generalConfig") {
+    
+                        
+                        const userRef = firebase.database().ref(`${user}/settings/nickname`);
+                        arrayPromises.push(userRef.once("value"));
+    
                     }
+                }
+    
+                // Using promise.all to make sure to get all values before doing anything
+    
+                Promise.all(arrayPromises).then((values) => {
+                    const existingNicknames = values.map((item) => {
+                        return item.val()
+                    });
+    
+                    if (existingNicknames.includes(nickname)) {
+    
+                        functionToCallAlert();
+                        
+                    } else {
+                        
+                        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((result) => {
                 
-            }
-
-            console.log(data,"here");
-            console.log("user",result.user.uid);
-
-            firebase.database().ref(`${result.user.uid}`).update(data);
-
-            result.user.sendEmailVerification().then(function () {
-                // Email sent.
+                            const data = {
+                                
+                                    "chats": false,
+                                    "settings": {
+                                        "language": this.state.language,
+                                        "nickname": this.state.name,
+                                        "email": this.state.email,
+                                    }
+                                
+                            }
                 
-            }).catch(function (error) {
-                // An error happened.
-                console.log(error);
-            });
-
-            
-
-            
-            
-            // result.user.language = this.state.language;
-
-            result.user.updateProfile({
-                displayName: this.state.name,
-                language:this.state.language
+                            firebase.database().ref(`${result.user.uid}`).update(data);
+                
+                            result.user.sendEmailVerification().then(function () {
+                                // Email sent.
+                                
+                            }).catch(function (error) {
+                                // An error happened.
+                                console.log(error);
+                            });
+                
+                            // update the profile with the nickname selected
+                
+                            result.user.updateProfile({
+                                displayName: this.state.name,
+                            })
+                
+                            
+                
+                
+                        }).catch(function (error) {
+                            // Handle Errors here.
+                            
+                            const errorMessage = error.message;
+                            console.log(errorMessage);
+                            // ...
+                        });
+                    }
+                })
             })
+        }
 
-            // firebase.database().ref(`user.user.uid/`).update(data);
-            
-
-
-        }).catch(function (error) {
-            // Handle Errors here.
-            
-            const errorMessage = error.message;
-            console.log(errorMessage);
-            // ...
-        });
+    
     }
 
     handleChange = (event) => {

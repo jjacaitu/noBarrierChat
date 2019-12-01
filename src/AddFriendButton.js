@@ -11,33 +11,31 @@ class AddFriendButton extends Component {
             nickname:"",
             openedChats: [],
             error: false,
-            errorMessage:""
+            errorMessage:"",
         }
     }
 
     componentDidMount() {
 
         // Getting the reference of all the opened chats of the user
-            const friendsReference = firebase.database().ref(`${this.props.userId}/chats`)
+        const friendsReference = firebase.database().ref(`${this.props.userId}/chats`)
 
         // Seting up listener in order to get any changes on the database of incoming conversations.
 
-        
-
-            friendsReference.on("value", (snapshot) => {
-                const openedChats = [];
-                const openedChatsData = snapshot.val();
-                
-                for (let chat in openedChatsData) {
-               
-                    openedChats.push(openedChatsData[chat].nickname);
-                }
-                
-                this.setState({
-                    openedChats:openedChats
-                })
-
+        friendsReference.on("value", (snapshot) => {
+            const openedChats = [];
+            const openedChatsData = snapshot.val();
+            
+            for (let chat in openedChatsData) {
+            
+                openedChats.push(openedChatsData[chat].nickname);
+            }
+            
+            this.setState({
+                openedChats:openedChats
             })
+
+        })
 
     }
     
@@ -123,46 +121,26 @@ class AddFriendButton extends Component {
                                 error: true
                             });
                         }
-                    })
-
-                    
-                })
-        
-                
+                    }) 
+                }) 
             })
         }
     }
     
-    
-    
-    handleChange = (event) => {
-        this.setState({
-            nickname: event.target.value
-        })
-    }
-
-    closeAlert = () => {
-        this.setState({
-            error:false
-        })
-    }
-
-    
-
 
     render() {
         return (
             <div>
                 {this.state.error
                     ?
-                    <AlertMessage message={this.state.errorMessage} functionToClose={this.closeAlert} originalLabel="Ok" resend={false}/>
+                    <AlertMessage title="Oops! There is a problem!" message={this.state.errorMessage} functionToClose={()=>{this.setState({error:false})}} originalLabel="Ok" resend={false}/>
                     :
                     ""
                 }
                 
                 <form className="addFriendBar" action="" onSubmit={this.addFriend}>
                     <label htmlFor="nickname">Enter nickname of a friend to start a conversation:</label>
-                    <input type="text" id="nickname" placeholder="Enter nickname" value={this.state.nickname} onChange={this.handleChange} required/>
+                    <input type="text" id="nickname" placeholder="Enter nickname" value={this.state.nickname} onChange={(e)=>{this.setState({nickname: e.target.value})}} required/>
                     <SubmitButton label="Add" />
                 </form>
             </div>

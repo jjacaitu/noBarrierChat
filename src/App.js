@@ -26,13 +26,12 @@ class App extends Component {
       language: null,
       verified: null,
       optionSelected: "signIn",
-      friendsVisible: false,
       languagesList: ["english"],
       settingsStatus: false,
       signInAlert: false,
       verifyAlert: false,
-      introduction:true,
-      
+      introduction: "",
+      nicknameAlert: false,
     }
   }
 
@@ -80,7 +79,8 @@ class App extends Component {
         
         this.setState({
           signedIn: false,
-          userId: null
+          userId: null,
+          introduction: true
         })
       }
     })
@@ -133,29 +133,18 @@ class App extends Component {
     })
   }
 
-  closeAlert = () => {
-    
-    this.setState({
-      verifyAlert: false
-    })
-  }
-
-  closeSignInAlert = () => {
-    this.setState({
-      signInAlert: false
-    })
-  }
-
   
-
   render() {
 
     return (
       
       <div>
+
         <Header signedIn={this.state.signedIn} onClickFunction={() => {
           this.setState({ settingsStatus: !this.state.settingsStatus })}} />
+
         <main>
+
           {this.state.introduction
             ?
             <Introduction functionToClose={() => { this.setState({ introduction: false }) }} />
@@ -170,9 +159,9 @@ class App extends Component {
             :
             <div className="options">
 
-              {this.state.verifyAalert
+              {this.state.verifyAlert
                 ?
-                <AlertMessage functionToClose={this.closeAlert} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
+                <AlertMessage title="An email has been sent to you!" functionToClose={()=>{this.setState({verifyAlert:false})}} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
                 :
                 ""
               }
@@ -180,10 +169,19 @@ class App extends Component {
 
               {this.state.signInAlert
                 ?
-                <AlertMessage functionToClose={this.closeSignInAlert} message="You have entered an incorrect email or password!" aditionalButton={false} originalLabel="Ok" />
+                <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({signInAlert:false})}} message="You have entered an incorrect email or password!" aditionalButton={false} originalLabel="Ok" />
                 :
                 ""
               }
+
+              {this.state.nicknameAlert
+                ?
+                <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({nicknameAlert:false})}} message="The nickname you are trying to register is already in used or is invalid! please try a different nickname" aditionalButton={false} originalLabel="Ok" />
+                :
+                ""
+              }
+
+
               <div className="optionsButtons">
                 <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"} disabled={this.state.optionSelected === "signIn" ? true : false}>Sign In</button>
                 <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"} disabled={this.state.optionSelected === "signUp" ? true : false}>Sign Up</button>
@@ -198,7 +196,11 @@ class App extends Component {
                 :
                 this.state.optionSelected === "signUp"
                   ?
-                  <SignUp function={this.getLanguage} languages={this.state.languagesList} />
+                  <SignUp function={this.getLanguage} languages={this.state.languagesList} signUpAlert={() => {
+                    this.setState({
+                      nicknameAlert: true
+                    })
+                  }}/>
                   :
                   <GuestSignUp languages={this.state.languagesList} />
 
