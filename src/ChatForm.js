@@ -47,7 +47,7 @@ class ChatForm extends Component {
                 <GiphyComponent sender={this.props.sender} reciever={this.props.reciever} chatting={this.props.chatting} />
                 <form className="chatForm" action="" onSubmit={this.handleSubmit}>
                     <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={this.handleChange} disabled={this.props.reciever ? false : true} placeholder={this.props.reciever ? "Enter text to send" : "Please first select a chat"} required></textarea>
-                    <SubmitButton label="Send"/>
+                    <SubmitButton disabled={this.props.reciever ? false : true} label="Send"/>
                 </form>
                 
 

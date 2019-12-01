@@ -3,6 +3,7 @@ import SubmitButton from "./SubmitButton";
 import firebase from "firebase";
 
 
+
 class SignInPage extends Component{
 
     constructor() {
@@ -12,7 +13,8 @@ class SignInPage extends Component{
             password: "",
             forgetPassword: false,
             emailToRecover: "",
-            emailSent:false
+            emailSent: false,
+            google: false,
         }
     }
     
@@ -60,6 +62,24 @@ class SignInPage extends Component{
         })
 
     }
+
+    googleSignIn = () => {
+
+        const functionToGetUserIsNew = this.props.userIsNewFunction;
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+
+            // The signed-in user info.
+            const isUserNew = result.additionalUserInfo.isNewUser;
+            
+
+            functionToGetUserIsNew(isUserNew);
+            
+        })
+    }
+
+    
     
     render() {
         
@@ -75,7 +95,11 @@ class SignInPage extends Component{
                     
                 </form>
 
+                <button onClick={this.googleSignIn}>Google sign in <i class="fab fa-google" aria-hidden={true}></i></button>
+
                 <button onClick={() => { this.setState({ forgetPassword: !this.state.forgetPassword }) }}>Forgot your password?</button>
+
+                
                 
                 {this.state.forgetPassword
                     ?

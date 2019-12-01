@@ -31,6 +31,10 @@ class ChatPage extends Component {
       
 
     componentDidMount() {
+
+        // const user = firebase.auth().currentUser;
+
+        // this.setState({userNickname:user.displayName})
         
         if (this.state.chattingWithUid !== null) {
 
@@ -122,8 +126,15 @@ class ChatPage extends Component {
                 language:"",
             })
 
-            const bottomOfMessages = document.getElementById("bottom");
-            bottomOfMessages.scrollIntoView(false);
+            // Make the recentMessages div scroll to th bottom when there is a new message in the active conversation
+
+            const recentMessages = document.querySelector(".recentMessages");
+            recentMessages.scrollTo({
+                top: recentMessages.scrollHeight,
+                left: 0,
+                behavior: "smooth"
+            })
+            
         }
         
         const dbRef = firebase.database().ref(`${this.state.userId}/chats/${uid}/messages`);
@@ -169,6 +180,9 @@ class ChatPage extends Component {
                 
                 
                 <div className="chatPageContainer">
+
+                    
+
                     {
                         this.state.deleteConfirmation
                             ?
@@ -189,7 +203,7 @@ class ChatPage extends Component {
                         {/* Only show the add conversation(friend) button if there are less than 5 active conversations */}
                     {this.state.friends.length <= 5
                         ?
-                        <AddFriendButton userId={this.state.userId} userNickname={this.state.userNickname} />
+                        <AddFriendButton disabled={this.state.userNickname ? false : true} userId={this.state.userId} userNickname={this.state.userNickname} />
                         :
                         null
                         }

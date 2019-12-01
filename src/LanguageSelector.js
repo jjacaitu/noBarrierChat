@@ -5,7 +5,7 @@ import React from "react";
 function LanguageSelector(props){
 
     return (
-        <div>
+        <div className="language">
             <label htmlFor="language">Select your language:  </label>
             <select name="language" id="language" onChange={props.function} defaultValue="en" required>
                 {props.languages.map((language, index) => {

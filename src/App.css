@@ -33,7 +33,6 @@ img {
 input, select {
   margin: 20px;
   font-size: 0.8rem;
-  /* width: 50%; */
   padding-left: 10px;
   border-radius: 10px;
   border: solid 1px #112d4e;
@@ -86,13 +85,13 @@ nav button {
   position: relative;
 }
 
-nav button i{
+button i{
   transition: all 0.5s;
   padding-left: 5px;
   
 }
 
-nav button:hover i, nav button:focus i{
+button:enabled:hover i,button:enabled:focus i{
   transform: scale(1.5);
   color: #ff4343;
 }
@@ -235,7 +234,7 @@ em {
 
 
 
-  .optionsButtons button::after, .signIn button:nth-of-type(1)::after, nav button::after {
+  .optionsButtons button::after, .signIn button::after, nav button::after {
     content: "";
     position: absolute;
     width: 0;
@@ -252,7 +251,7 @@ em {
     width: 65%;
   }
 
-  .optionsButtons button:hover::after, .optionsButtons button:focus::after, .signIn button:nth-of-type(1):hover::after, .signIn button:focus::after, nav button:hover::after,nav button:focus::after {
+  .optionsButtons button:enabled:hover::after, .optionsButtons button:enabled:focus::after, .signIn button:enabled:hover::after, .signIn button:enabled:focus::after, nav button:enabled:hover::after,nav button:enabled:focus::after {
     width: 65%;
   }
 
@@ -265,6 +264,16 @@ em {
 }
 
 /* Sign in page */
+
+.language {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.language select {
+  margin-left: 5px;
+}
 
 .signIn, .signUp, .guestSignIn {
   display: flex;
@@ -285,6 +294,10 @@ em {
   box-shadow: 0px 0px 20px #112d4e;
   padding: 20px;
   
+}
+
+.signIn {
+  position: relative;
 }
 
 .signIn form {
@@ -387,7 +400,7 @@ span.logo {
   align-items: center;
 }
 
-.friendButton button:hover, .friendButton button:focus {
+.friendButton button:enabled:hover, .friendButton button:enabled:focus {
   animation: pulse both ease-in-out 1s infinite;
   
 }
@@ -538,6 +551,13 @@ span.logo {
 
 .gif {
   width: calc(100% / 3 - 20px);
+  padding:0;
+  margin: 0;
+  
+}
+
+.gif img {
+  object-fit: cover;
 }
 
 .gif:hover, .gif:focus {
@@ -574,7 +594,7 @@ textarea:disabled {
   align-self: center;
 }
 
-.submitButton:hover, .submitButton:focus {
+.submitButton:enabled:hover, .submitButton:enabled:focus {
   box-shadow: 5px 5px #112d4e;
 }
 
@@ -630,9 +650,9 @@ background-color: rgb(177, 231, 177);
 
 /* Settings page */
 
-.settingsPage {
-  position: absolute;
-  z-index: 9;
+.settingsPage, .googleSignIn {
+  position: fixed;
+  z-index: 10;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -642,8 +662,27 @@ background-color: rgb(177, 231, 177);
   animation: appear both 0.5s 1;
   border-radius: 20px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
+
+.googleSignIn {
+  width: 50%;
+  height: 70%;
+}
+
+.googleSignIn form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+
+}
+
+
 
 .settingsPage form:last-of-type {
     display: flex;
@@ -670,7 +709,7 @@ background-color: rgb(177, 231, 177);
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  z-index: 9;
+  z-index: 11;
   border: solid 5px #112d4e;
   min-height: 40vh;
   justify-content: center;
@@ -684,7 +723,7 @@ background-color: rgb(177, 231, 177);
   text-align: center;
 }
 
-.alert button:hover, .alert button:focus {
+.alert button:enabled:hover, .alert button:enabled:focus {
   box-shadow: 10px 10px #112d4e;
 }
 
@@ -860,5 +899,9 @@ footer {
   .settingsPage, .alert, .introduction {
     width: 90%;
     font-size: 0.8rem;
+  }
+
+  .gif {
+    width: calc(100%/2 - 20px);
   }
 }

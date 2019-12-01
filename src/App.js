@@ -11,6 +11,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import SettingsPage from "./SettingsPage";
 import Introduction from "./Introduction";
+import GoogleSignIn from "./GoogleSignIn";
 
 
 
@@ -32,6 +33,7 @@ class App extends Component {
       verifyAlert: false,
       introduction: "",
       nicknameAlert: false,
+      userIsNew: false
     }
   }
 
@@ -40,7 +42,23 @@ class App extends Component {
   componentDidMount() {
     
     firebase.auth().onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
+      // console.log(user.displayName);
+
+      if (user && this.state.userIsNew) {
+        
+        user.updateProfile({
+          displayName: "",
+        });
+
+        this.setState({
+          name: null,
+          signedIn: true,
+          email: user.email,
+          userId: user.uid,
+
+        })
+
+      }else if (user && user.emailVerified) {
         
         this.setState({
           signedIn: true,
@@ -50,12 +68,17 @@ class App extends Component {
           language: ""
         })
         
-      }else if(user && !user.emailVerified && user.email){
+      
+        
+
+      
+      
+      }else if (user && !user.emailVerified && user.email) {
         this.setState({
           verifyAlert: true
         })
         // In case the user sign in as guest
-      } else if (user && user.email === null) {
+      } else if (user && user.isAnonymous) {
         const guestNumberData = firebase.database().ref("/generalConfig");
         
         guestNumberData.once("value").then((snapshot) => {
@@ -140,7 +163,7 @@ class App extends Component {
       
       <React.Fragment>
 
-        <Header signedIn={this.state.signedIn} onClickFunction={() => {
+        <Header nickname={this.state.name} signedIn={this.state.signedIn} onClickFunction={() => {
           this.setState({ settingsStatus: !this.state.settingsStatus })}} />
 
         <main>
@@ -155,6 +178,23 @@ class App extends Component {
                 :
                 ""
 
+              }
+
+              {this.state.nicknameAlert
+                ?
+                <AlertMessage title="Oops! there was a problem!" functionToClose={() => { this.setState({ nicknameAlert: false }) }} message="The nickname you are trying to register is already in used or is invalid! please try a different nickname" aditionalButton={false} originalLabel="Ok" />
+                :
+                ""
+              }
+
+              {(this.state.userIsNew || this.state.name === null) && this.state.signedIn
+                ?
+                <GoogleSignIn googleNicknameAlertFunction={() => {
+                  this.setState({
+                    nicknameAlert: true
+                  })}} userUid={this.state.userId} updateNickname={(nickname) => { this.setState({name:nickname})}} userEmail={this.state.userEmail} languages={this.state.languagesList} />
+                :
+                ""
               }
               
               {this.state.signedIn
@@ -178,14 +218,6 @@ class App extends Component {
                     ""
                   }
 
-                  {this.state.nicknameAlert
-                    ?
-                    <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({nicknameAlert:false})}} message="The nickname you are trying to register is already in used or is invalid! please try a different nickname" aditionalButton={false} originalLabel="Ok" />
-                    :
-                    ""
-                  }
-
-
                   <div className="optionsButtons">
                     <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"} disabled={this.state.optionSelected === "signIn" ? true : false}>Sign In</button>
                     <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"} disabled={this.state.optionSelected === "signUp" ? true : false}>Sign Up</button>
@@ -194,7 +226,7 @@ class App extends Component {
 
                   {this.state.optionSelected === "signIn"
                     ?
-                    <SignInPage getLanguage={this.getLanguage} signInAlert={()=>{this.setState({
+                    <SignInPage userIsNewFunction={(trueOrFalse) => { this.setState({ userIsNew: trueOrFalse }) }}  languages={this.state.languagesList} getLanguage={this.getLanguage} signInAlert={()=>{this.setState({
                       signInAlert:true
                     })}} />
                     :

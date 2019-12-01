@@ -141,7 +141,7 @@ class AddFriendButton extends Component {
                 <form className="addFriendBar" action="" onSubmit={this.addFriend}>
                     <label htmlFor="nickname">Enter nickname of a friend to start a conversation:</label>
                     <input type="text" id="nickname" placeholder="Enter nickname" value={this.state.nickname} onChange={(e)=>{this.setState({nickname: e.target.value})}} required/>
-                    <SubmitButton label="Add" />
+                    <SubmitButton label="Add" disabled={this.props.disabled} />
                 </form>
             </div>
         )
