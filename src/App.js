@@ -138,90 +138,98 @@ class App extends Component {
 
     return (
       
-      <div>
+      <React.Fragment>
 
         <Header signedIn={this.state.signedIn} onClickFunction={() => {
           this.setState({ settingsStatus: !this.state.settingsStatus })}} />
 
         <main>
 
-          {this.state.introduction
-            ?
-            <Introduction functionToClose={() => { this.setState({ introduction: false }) }} />
-            :
-            ""
+          <div className="wrapper">
 
-          }
-          
-          {this.state.signedIn
-            ?
-            <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
-            :
-            <div className="options">
+            <div className="mainDiv">
 
-              {this.state.verifyAlert
+              {this.state.introduction
                 ?
-                <AlertMessage title="An email has been sent to you!" functionToClose={()=>{this.setState({verifyAlert:false})}} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
+                <Introduction functionToClose={() => { this.setState({ introduction: false }) }} />
+                :
+                ""
+
+              }
+              
+              {this.state.signedIn
+                ?
+                <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
+                :
+                <div className="options">
+
+                  {this.state.verifyAlert
+                    ?
+                    <AlertMessage title="An email has been sent to you!" functionToClose={()=>{this.setState({verifyAlert:false})}} message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={true} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
+                    :
+                    ""
+                  }
+
+
+                  {this.state.signInAlert
+                    ?
+                    <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({signInAlert:false})}} message="You have entered an incorrect email or password!" aditionalButton={false} originalLabel="Ok" />
+                    :
+                    ""
+                  }
+
+                  {this.state.nicknameAlert
+                    ?
+                    <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({nicknameAlert:false})}} message="The nickname you are trying to register is already in used or is invalid! please try a different nickname" aditionalButton={false} originalLabel="Ok" />
+                    :
+                    ""
+                  }
+
+
+                  <div className="optionsButtons">
+                    <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"} disabled={this.state.optionSelected === "signIn" ? true : false}>Sign In</button>
+                    <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"} disabled={this.state.optionSelected === "signUp" ? true : false}>Sign Up</button>
+                    <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"} disabled={this.state.optionSelected === "guestSignIn" ? true : false}>Guest Sign In</button>
+                  </div>
+
+                  {this.state.optionSelected === "signIn"
+                    ?
+                    <SignInPage getLanguage={this.getLanguage} signInAlert={()=>{this.setState({
+                      signInAlert:true
+                    })}} />
+                    :
+                    this.state.optionSelected === "signUp"
+                      ?
+                      <SignUp function={this.getLanguage} languages={this.state.languagesList} signUpAlert={() => {
+                        this.setState({
+                          nicknameAlert: true
+                        })
+                      }}/>
+                      :
+                      <GuestSignUp languages={this.state.languagesList} />
+
+                  }
+
+                </div>
+              }
+                    
+              {this.state.settingsStatus && this.state.signedIn
+                ?
+                <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language} closeSettings={() => {
+                  this.setState({ settingsStatus: !this.state.settingsStatus })
+                }}/>
                 :
                 ""
               }
-
-
-              {this.state.signInAlert
-                ?
-                <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({signInAlert:false})}} message="You have entered an incorrect email or password!" aditionalButton={false} originalLabel="Ok" />
-                :
-                ""
-              }
-
-              {this.state.nicknameAlert
-                ?
-                <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({nicknameAlert:false})}} message="The nickname you are trying to register is already in used or is invalid! please try a different nickname" aditionalButton={false} originalLabel="Ok" />
-                :
-                ""
-              }
-
-
-              <div className="optionsButtons">
-                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"} disabled={this.state.optionSelected === "signIn" ? true : false}>Sign In</button>
-                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"} disabled={this.state.optionSelected === "signUp" ? true : false}>Sign Up</button>
-                <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"} disabled={this.state.optionSelected === "guestSignIn" ? true : false}>Guest Sign In</button>
-              </div>
-
-              {this.state.optionSelected === "signIn"
-                ?
-                <SignInPage getLanguage={this.getLanguage} signInAlert={()=>{this.setState({
-                  signInAlert:true
-                })}} />
-                :
-                this.state.optionSelected === "signUp"
-                  ?
-                  <SignUp function={this.getLanguage} languages={this.state.languagesList} signUpAlert={() => {
-                    this.setState({
-                      nicknameAlert: true
-                    })
-                  }}/>
-                  :
-                  <GuestSignUp languages={this.state.languagesList} />
-
-              }
-
             </div>
-          }
-                
-          {this.state.settingsStatus && this.state.signedIn
-            ?
-            <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language} closeSettings={() => {
-              this.setState({ settingsStatus: !this.state.settingsStatus })
-            }}/>
-            :
-            ""
-          }
+
+          </div>
+
         </main>
 
         <Footer/>
       
-      </div>
+      </React.Fragment>
     )
   }
 }

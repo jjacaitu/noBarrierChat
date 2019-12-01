@@ -26,7 +26,8 @@ function translate(text,sender,reciever,nickname) {
             const translatedMessage = {
                 "message": translation,
                 "type": "recieved",
-                "time": Date(Date.now().toString()).split(" GMT").splice(0, 1)
+                "time": Date(Date.now().toString()).split(" GMT").splice(0, 1),
+                "format" : "text"
             }
             dbRef.push(translatedMessage);
             

@@ -29,7 +29,12 @@ function RecentMessages(props) {
                         return (
                             <li key={index} className={message.type} >
                                 <p className="time">{message.time}</p>
-                                <p className="message">{message.message}</p>
+                                {message.format === "text"
+                                    ?
+                                    <p className="message">{message.message}</p>
+                                    :
+                                    <img src={message.message} alt={message.altTag}/>
+                                }
                             </li>
                         )
                     })

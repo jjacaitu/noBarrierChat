@@ -110,7 +110,7 @@ class ChatPage extends Component {
 
     }
 
-    deleteConversation = (indexToDelete) => {
+    deleteConversation = () => {
         const chattingWithUid = this.state.friends[this.state.messageToDelete].uid;
         
         // Delete thecnversation from both users
@@ -190,7 +190,7 @@ class ChatPage extends Component {
                             
                         
                         <RecentMessages messages={this.state.messages} chattingWith={this.state.chattingWithName} userImg={this.state.userImg} />
-                        <ChatForm  language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname}/>
+                        <ChatForm language={this.state.language} sender={this.state.userId} reciever={this.state.chattingWithUid} nickname={this.state.userNickname} chatting={this.state.chattingWithName?true:false}/>
                     </div>
 
                 </div>

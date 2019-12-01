@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SubmitButton from "./SubmitButton";
 import firebase from "firebase";
 import translate from "./translate"
+import GiphyComponent from "./GiphyComponent";
 
 
 class ChatForm extends Component {
@@ -21,7 +22,8 @@ class ChatForm extends Component {
         const message = {
             "message": this.state.text,
             "type": "sent",
-            "time": Date(Date.now().toString()).split(" GMT").splice(0, 1)
+            "time": Date(Date.now().toString()).split(" GMT").splice(0, 1),
+            "format" : "text"
         }
         dbRef.push(message);
         
@@ -41,10 +43,16 @@ class ChatForm extends Component {
 
     render() {
         return (
-            <form className="chatForm" action="" onSubmit={this.handleSubmit}>
-                <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={this.handleChange} disabled={this.props.reciever ? false : true} placeholder={ this.props.reciever ? "Enter text to send" : "Please first select a chat" } required></textarea>
-                <SubmitButton label="Send"/>
-            </form>
+            <div className="chatFormDiv">
+                <GiphyComponent sender={this.props.sender} reciever={this.props.reciever} chatting={this.props.chatting} />
+                <form className="chatForm" action="" onSubmit={this.handleSubmit}>
+                    <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={this.handleChange} disabled={this.props.reciever ? false : true} placeholder={this.props.reciever ? "Enter text to send" : "Please first select a chat"} required></textarea>
+                    <SubmitButton label="Send"/>
+                </form>
+                
+
+            </div>
+
         )
         
     }
