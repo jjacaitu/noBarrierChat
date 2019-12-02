@@ -4,7 +4,7 @@ import noImage from "./noImage.png"
 
 function RecentMessages(props) {
     return (
-        <div className="recentMessagesDiv">
+        <div id="recentMessages" className="recentMessagesDiv">
             <div className="chatHeader">
                 {props.userImg
                     ?

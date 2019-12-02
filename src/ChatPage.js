@@ -142,6 +142,8 @@ class ChatPage extends Component {
         dbRef.off("value", handle);
         dbRef.on("value", handle);
 
+        document.querySelector("#recentMessages").scrollIntoView();
+
     }
 
     deleteConversation = () => {
