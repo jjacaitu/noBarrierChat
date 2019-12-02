@@ -95,7 +95,7 @@ class SignInPage extends Component{
                     
                 </form>
 
-                <button onClick={this.googleSignIn}>Google sign in <i class="fab fa-google" aria-hidden={true}></i></button>
+                <button onClick={this.googleSignIn}>Google sign in <i className="fab fa-google" aria-hidden={true}></i></button>
 
                 <button onClick={() => { this.setState({ forgetPassword: !this.state.forgetPassword }) }}>Forgot your password?</button>
 

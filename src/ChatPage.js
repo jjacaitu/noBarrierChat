@@ -32,9 +32,7 @@ class ChatPage extends Component {
 
     componentDidMount() {
 
-        // const user = firebase.auth().currentUser;
-
-        // this.setState({userNickname:user.displayName})
+        
         
         if (this.state.chattingWithUid !== null) {
 
@@ -71,15 +69,13 @@ class ChatPage extends Component {
                     }
                 })
 
-                
-
                 if (found) {
-                    // If it is opened then just update the conversations that are opened
+                    // If it is not opened then just update the conversations that are opened
                     this.setState({
                         friends: openedChats
                     })
                 } else {
-                    // If its not opened then set the chatting with information to null
+                    // If its opened then set the chatting with information to null
                     this.setState({
                         friends: openedChats,
                         chattingWithName: null,
@@ -112,6 +108,11 @@ class ChatPage extends Component {
                     } 
                 } else {
                     messages.push(messagesData);
+                }
+
+                // Check if there are more than 50 messages and only show the last 50 in case there are.
+                if (messages.length > 50) {
+                    messages = messages.slice(messages.length - 50, messages.length);
                 }
 
             }

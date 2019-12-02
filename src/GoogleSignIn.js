@@ -75,8 +75,6 @@ class GoogleSignIn extends Component {
                     } else {
 
                         
-                        
-
                         const data = {
 
                             "chats": false,
@@ -106,12 +104,8 @@ class GoogleSignIn extends Component {
                              
                             }
                         )
-                        // ...
-                    
-                        
                     }
                 })
-        
             })
         }
     }
@@ -123,7 +117,7 @@ class GoogleSignIn extends Component {
                 <form action="" onSubmit={this.setupNicknameAndLanguage}>
                     <p>Please fill the following form in order to continue:</p>
                     <label htmlFor="nickname">Enter a nickname: </label>
-                    <input type="text" id="nickname" value={this.state.nickname} onChange={(e)=>{this.setState({nickname:e.target.value})}} required />
+                    <input maxLength={10} type="text" id="nickname" value={this.state.nickname} onChange={(e)=>{this.setState({nickname:e.target.value})}} required />
                     <LanguageSelector languages={this.props.languages} function={(e) => { this.setState({ language: e.target.value }) }} />
                     <SubmitButton label="Save settings"/>
                 </form>

@@ -408,7 +408,7 @@ span.logo {
 }
 
 .friendButton img {
-  
+  max-width: 120px;
   width: 50%;
 }
 
@@ -642,6 +642,10 @@ background-color: rgb(177, 231, 177);
   left: 25px;
 }
 
+.unread {
+  background-color: #ff4343;
+}
+
 .time {
   color: rgb(63, 63, 63);
   font-size: 0.8rem;
@@ -831,7 +835,15 @@ footer {
 
   .friendButton img {
     width: 100%;
-    max-width: 80px;
+    max-width: 60px;
+  }
+
+  .chatForm {
+    flex-direction: column;
+  }
+
+  .gifSearch div {
+    margin-bottom: 20px;
   }
 
 

@@ -9,10 +9,6 @@ function FriendSelector(props) {
         props.function(event.currentTarget.value, event.currentTarget.id);
     }
 
-    // const deleteConversation = (event) => {
-       
-    //     props.deleteFunction(event.currentTarget.value);
-    // }
 
     return (
         <li className="friendButton">
