@@ -132,7 +132,7 @@ class SignUp extends Component{
                 <label htmlFor="email">Enter email</label>
                 <input type="email" id="email" onChange={this.handleChange} value={this.state.email} required />
                 <label htmlFor="password">Enter password</label>
-                <input type="password" id="password" onChange={this.handleChange} value={this.state.password} required />
+                <input type="password" id="password" minLength={6} onChange={this.handleChange} value={this.state.password} required />
                 <LanguageSelector languages={this.props.languages} function={this.getLanguage} />
                 <SubmitButton label="Sign up" />
             </form>

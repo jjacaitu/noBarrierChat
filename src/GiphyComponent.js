@@ -13,14 +13,20 @@ class GiphyComponent extends Component {
         }
     }
 
+    toggleGiphySearch = () => {
+        this.setState({
+            giphyOpen: !this.state.giphyOpen
+        })
+    }
+
     render() {
 
         return (
             <div className="giphyDiv">
-                <button disabled={this.props.chatting ? false : true} onClick={() => { this.setState({ giphyOpen: !this.state.giphyOpen }) }}>Add Gif <i className="fas fa-image" aria-hidden={true}></i></button>
+                <button disabled={this.props.chatting ? false : true} onClick={this.toggleGiphySearch}>Add Gif <i className="fas fa-image" aria-hidden={true}></i></button>
                 {this.state.giphyOpen && this.props.chatting
                     ?
-                    <GiphSearch sender={this.props.sender} reciever={this.props.reciever}/>
+                    <GiphSearch closeGiphy={this.toggleGiphySearch} sender={this.props.sender} reciever={this.props.reciever}/>
                     :
                     ""
                     

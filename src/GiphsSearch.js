@@ -85,6 +85,8 @@ class GiphSearch extends Component{
             "altTag" : altTag
         }
         dbRef.push(message);
+
+        this.props.closeGiphy();
     }
 
 
