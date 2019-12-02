@@ -360,6 +360,8 @@ span.logo {
 .listOfFriends ul {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
 }
 
 .addFriendBar {
@@ -820,13 +822,15 @@ footer {
 
   .friendButton {
     flex-direction: column;
-    width: calc((100%/5) - 10px);
+    max-width: calc(100% / 2 - 10px);
     padding: 10px 0;
     margin-right: 10px;
+    min-width: 120px;
   }
 
   .friendButton img {
     width: 100%;
+    max-width: 80px;
   }
 
 
@@ -875,6 +879,16 @@ footer {
 
   .sent,.recieved {
     max-width: 90%;
+  }
+
+  /* Had to use floats in order to make them go to the right or left on mobile */
+
+  .sent{
+    float: right;
+  }
+
+  .recieved {
+    float: left;
   }
 
 

@@ -23,7 +23,7 @@ function RecentMessages(props) {
 
                 }
             </div>
-            <ul className="recentMessages">
+            <ul className="recentMessages clearfix">
                 {   
                     props.messages.map((message, index) => {
                         return (
@@ -39,7 +39,7 @@ function RecentMessages(props) {
                         )
                     })
                 }
-                <li id="bottom"></li>
+                
             </ul>
         </div>
     )
