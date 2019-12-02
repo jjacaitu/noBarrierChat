@@ -826,6 +826,10 @@ footer {
     margin-left: 0;
   }
 
+  .messagesAndTextContainer>p {
+    padding-left: 0;
+  }
+
   .listOfFriends {
     
     width: 100%;

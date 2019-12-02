@@ -142,7 +142,16 @@ class ChatPage extends Component {
         dbRef.off("value", handle);
         dbRef.on("value", handle);
 
-        document.querySelector("#recentMessages").scrollIntoView();
+        // Making the page scroll when the user selects a conversation
+
+        document.querySelector("#recentMessages").scrollIntoView({behavior:"smooth"});
+
+        const lastMessage = document.querySelector(".recentMessages");
+        lastMessage.scrollTo({
+            top: lastMessage.scrollHeight,
+            left: 0,
+            behavior: "smooth"
+        })
 
     }
 
