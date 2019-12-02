@@ -3,8 +3,9 @@ import firebase from "firebase";
 
 const translatorApiKey = "trnsl.1.1.20191120T174117Z.30abf07a083257c3.606e1a38fc565562205063e541cb970657ab2600";
 
-function translate(text,sender,reciever,nickname) {
+// Function that takes a text, translates it to the selected language and dtore the text on the databse of the reciever user
 
+function translate(text,sender,reciever,nickname) {
 
     firebase.database().ref(`${reciever}/settings/language`).once("value").then((snapshot)=>{
         
@@ -34,8 +35,6 @@ function translate(text,sender,reciever,nickname) {
 
             firebase.database().ref(`${reciever}/chats/${sender}/nickname`).set(nickname);
 
-        }).catch((error)=>{
-            console.log(error);
         })
 
     })

@@ -13,6 +13,7 @@ class ChatForm extends Component {
         }
     }
     
+    // Method that will handle the onSubmit by storing the message in the database and making the api call usign the translate function which will then store the transalted message in the datbase of the chat for the other user in the selected language.
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -27,6 +28,8 @@ class ChatForm extends Component {
         }
         dbRef.push(message);
         
+        // Calling the translate function
+
         translate(this.state.text,this.props.sender,this.props.reciever,this.props.nickname);
 
         this.setState({
@@ -34,19 +37,21 @@ class ChatForm extends Component {
         })
     }
 
-    handleChange = (event) => {
-        this.setState({
-            text: event.target.value
-        });
-    }
 
+    // Rendering the component
 
     render() {
         return (
             <div className="chatFormDiv">
+
+                {/* Rendering the GiphyComponent component which lets the user send GIFS */}
+
                 <GiphyComponent sender={this.props.sender} reciever={this.props.reciever} chatting={this.props.chatting} />
+
+                {/* Form for the text messages that the user inputs */}
+
                 <form className="chatForm" action="" onSubmit={this.handleSubmit}>
-                    <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={this.handleChange} disabled={this.props.reciever ? false : true} placeholder={this.props.reciever ? "Enter text to send" : "Please first select a chat"} required></textarea>
+                    <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={(e)=>{this.setState({text:e.target.value})}} disabled={this.props.reciever ? false : true} placeholder={this.props.reciever ? "Enter text to send" : "Please first select a chat"} required></textarea>
                     <SubmitButton disabled={this.props.reciever ? false : true} label="Send"/>
                 </form>
                 

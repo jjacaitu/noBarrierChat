@@ -6,24 +6,20 @@ function RecentMessages(props) {
     return (
         <div id="recentMessages" className="recentMessagesDiv">
             <div className="chatHeader">
-                {props.userImg
-                    ?
-                    <img src={props.userImg} alt="" />
-                    :
-                    <img src={noImage} alt="" />
-                }
-                    
-                {props.chattingWith
-                    ?
-                    
-                    <h2>{props.chattingWith}</h2>
-                
-                :
-                <h2>No chat has been selected!</h2>
 
-                }
+                {/* If the user has an image (coming soon!) then show the image, if not show the placeholder */}
+
+                {props.chattingWith && <img src={noImage} alt="" />}
+
+                {/* If the user is chatting with somone or has an opened conversation then show the other users name if not then show a message telling the user to select a conversation */}
+                    
+                {props.chattingWith ? <h3>{props.chattingWith}</h3> : <h3>Please select a conversation from the list on the left!</h3>}
+
             </div>
             <ul className="recentMessages clearfix">
+
+                {/* Map through all the messages and render them on the page */}
+
                 {   
                     props.messages.map((message, index) => {
                         return (

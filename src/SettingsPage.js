@@ -14,15 +14,18 @@ class SettingsPage extends Component {
     }
 
     componentDidMount() {
-        
+        const languages = this.props.languages;
+
+        const userUid = this.props.userUid;
         // Getting the user current language when the settings button is clicked
 
-        firebase.database().ref(`${this.props.userUid}/settings/language`).once("value").then((snapshot) => {
-            const currentLanguage = this.props.languages.filter((languageObject) => {
+        firebase.database().ref(`${userUid}/settings/language`).once("value").then((snapshot) => {
+
+            const currentLanguage = languages.filter((languageObject) => {
                 
                 return languageObject.code === snapshot.val()
             })
-            console.log(currentLanguage)
+            
             this.setState({
                 currentLanguage: currentLanguage[0].name
             })
@@ -38,16 +41,18 @@ class SettingsPage extends Component {
             language: event.target.value
             
         })
-        console.log(event.target.value)
+       
     }
 
-    // Funtion to apply changes to firebase database
+    // Method to apply changes to firebase database when the user saves the change
 
     applyChange = () => {
         firebase.database().ref(`${this.props.userUid}/settings/`).update({
             language: this.state.language
         });
     }
+
+    // Rendering the component
 
     render() {
         return (

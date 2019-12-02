@@ -50,9 +50,6 @@ button {
   transition: all 0.5s;
 }
 
-
-
-
 header {
   
   /* background-color: rgb(20, 26, 119); */
@@ -145,16 +142,12 @@ h2 {
   padding-bottom: 30px;
 }
 
-h3 {
-  padding: 20px;
-  width: 60%;
-  text-align: center;
-}
 
-h4 {
+h3, h4 {
   color: #dbe2ef;
   text-shadow: 2px 2px #112d4e;
   text-transform: uppercase;
+  padding-left: 10px;
 }
 
 span {
@@ -167,7 +160,7 @@ em {
 
 .wrapper {
   max-width: 1400px;
-  width: 80%;
+  width: 90%;
   margin:0 auto;
 }
 
@@ -417,10 +410,15 @@ span.logo {
   flex-direction: column;
   /* justify-content: center; */
   text-align: center;
-  align-items: center;
+  align-items: flex-end;
   
   
   transition: all 0.5s;
+}
+
+.messagesAndTextContainer>div:first-child{
+  margin-left: 40px;
+  width: 70%;
 }
 
 .messagesAndTextContainer>p  {
@@ -775,7 +773,7 @@ footer {
 /* media queries */
 
 @media (hover: hover) {
-    button:enabled:hover i,button:enabled:focus i{
+     header button:enabled:hover i, header button:enabled:focus i{
       transform: scale(1.5);
       color: #ff4343;
     }
@@ -809,13 +807,15 @@ footer {
 
 
 @media (max-width: 875px){
-  .wrapper {
-    width: 90%;
-  }
+  
 
   .options, .introduction {
     width: 85%;
     min-width: initial;
+  }
+
+  .optionsButtons button {
+    margin: 10px 0;
   }
 
   .chatPageContainer {
@@ -826,8 +826,11 @@ footer {
     margin-left: 0;
   }
 
-  .messagesAndTextContainer>p {
-    padding-left: 0;
+  
+
+  .messagesAndTextContainer>div:first-child {
+    margin-left: 0;
+    width: 100%;
   }
 
   .listOfFriends {
@@ -850,8 +853,12 @@ footer {
     max-width: calc(100% / 2 - 10px);
     padding: 10px 0;
     margin-right: 10px;
-    min-width: 120px;
+    min-width: 80px;
     z-index: 3;
+  }
+
+  .friendButton p{
+    font-size: 0.8rem;
   }
 
   .friendButton img {

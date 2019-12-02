@@ -14,8 +14,6 @@ import Introduction from "./Introduction";
 import GoogleSignIn from "./GoogleSignIn";
 
 
-
-
 class App extends Component {
   constructor() {
     super();
@@ -38,11 +36,13 @@ class App extends Component {
   }
 
   
+// When the app starts set a listener to check if the user has logged in.
 
   componentDidMount() {
     
     firebase.auth().onAuthStateChanged((user) => {
-      // console.log(user.displayName);
+
+      // If the user has logged in and is a new user (In case the user used google sign in) then get rid of the display name that comes from the google acount. Having no display name will trigger the prompt that asks the user to input a nickname and a language later.
 
       if (user && this.state.userIsNew) {
         
@@ -58,6 +58,8 @@ class App extends Component {
 
         })
 
+      // If the user has logged in and has a verified email then rerender the page to let the user use the chat
+
       }else if (user && user.emailVerified) {
         
         this.setState({
@@ -67,17 +69,17 @@ class App extends Component {
           email: user.email,
           language: ""
         })
-        
-      
-        
 
       
-      
+      // If the user has logged in and the user's email hasn't been verified but has an email the show the alert that tells the user he needs to verify the email
+
       }else if (user && !user.emailVerified && user.email) {
         this.setState({
           verifyAlert: true
         })
-        // In case the user sign in as guest
+
+        // If the user has logged in and is anonymous (guest sign in) then give the user a number by checking in the databse de last guest user number and update the database with the guest number.
+
       } else if (user && user.isAnonymous) {
         const guestNumberData = firebase.database().ref("/generalConfig");
         
@@ -94,10 +96,8 @@ class App extends Component {
           });
           
         });
-        
-        
 
-
+      // If the user is not logged in then set the signedIn property of the state to false in order to show the sign in/log in pages
       } else {
         
         this.setState({
@@ -108,7 +108,7 @@ class App extends Component {
       }
     })
 
-    // Making a call to the API to get all the available languages
+    // Making an axios call to the API to get all the available languages when the app starts in order to use them in the language selector component
 
     axios({
       method: "get",
@@ -124,7 +124,7 @@ class App extends Component {
       let languagesList = [];
     
 
-      // Making an array that will store in objecs both the language code and language name
+      // Making an array that will store in objects both the language code and language name.
 
       for (let lang in languageObject) {
         languagesList.push({
@@ -150,21 +150,25 @@ class App extends Component {
     
   }
 
+  // create a method that gets the language from the language selector component and updates the state of the selected language in the general App component
+
   getLanguage = (language) => {
     this.setState({
       language: language
     })
   }
 
-  
+  // rendering
+
   render() {
 
     return (
       
       <React.Fragment>
 
-        <Header nickname={this.state.name} signedIn={this.state.signedIn} onClickFunction={() => {
-          this.setState({ settingsStatus: !this.state.settingsStatus })}} />
+        {/* Rendering the Header component and passing the nickname and signed in status in order to let the component know if the options should show or not and if the buttons should be disabled or not */}
+
+        <Header nickname={this.state.name} signedIn={this.state.signedIn} onClickFunction={() => { this.setState({ settingsStatus: !this.state.settingsStatus })}} />
 
         <main>
 
@@ -172,87 +176,146 @@ class App extends Component {
 
             <div className="mainDiv">
 
-              {this.state.introduction
-                ?
-                <Introduction functionToClose={() => { this.setState({ introduction: false }) }} />
-                :
-                ""
+              {/* If the state property is true then render the introduction prompt */}
 
+              {this.state.introduction
+                &&
+                <Introduction functionToClose={() => { this.setState({ introduction: false }) }} />
+                
               }
+
+              {/*======================
+               ALERTS SECTION
+               ======================= */}
+
+              {/* If the nickNameAlert property is true then render the Alert prompt */}
 
               {this.state.nicknameAlert
-                ?
-                <AlertMessage title="Oops! there was a problem!" functionToClose={() => { this.setState({ nicknameAlert: false }) }} message="The nickname you are trying to register is already in used or is invalid! please try a different nickname" aditionalButton={false} originalLabel="Ok" />
-                :
-                ""
+                &&
+                <AlertMessage
+                  title="Oops! there was a problem!"
+                  functionToClose={() => { this.setState({ nicknameAlert: false }) }}
+                  message="The nickname you are trying to register is already in used or is invalid! please try a different nickname"
+                  aditionalButton={false}
+                  originalLabel="Ok"
+                />
+
               }
 
-              {(this.state.userIsNew || this.state.name === null) && this.state.signedIn
-                ?
-                <GoogleSignIn googleNicknameAlertFunction={() => {
-                  this.setState({
-                    nicknameAlert: true
-                  })}} userUid={this.state.userId} updateNickname={(nickname) => { this.setState({name:nickname})}} userEmail={this.state.userEmail} languages={this.state.languagesList} />
-                :
-                ""
+              {/* If the verifyAlert state property is true then render the Alert component letting the user now that needs to verify the account on the email */}
+
+              {this.state.verifyAlert
+                &&
+                <AlertMessage
+                  title="An email has been sent to you!"
+                  functionToClose={() => { window.location.reload() }}
+                  message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!"
+                  originalLabel="Ok"
+                  aditionalButton={true}
+                  aditionalFunction={() => { firebase.auth().currentUser.sendEmailVerification() }}
+                  aditionallabel="Resend email"
+                />
+    
               }
+
+              {/* If the signInAlert is true the render the Alert that lets the user now there has been a problem */}
+
+              {this.state.signInAlert
+                &&
+                <AlertMessage
+                  title="Oops! there was a problem!"
+                  functionToClose={() => { this.setState({ signInAlert: false }) }}
+                  message="You have entered an incorrect email or password!"
+                  aditionalButton={false}
+                  originalLabel="Ok"
+                />
+                
+              }
+
+              {/* If the user is new or if the user has no nickname(In the case of using google sign in) and the user has signed in then render the GoogleSignIn component in order to ask the user for a language and a nickname */}
+
+              {(this.state.userIsNew || this.state.name === null) && this.state.signedIn
+                &&
+                <GoogleSignIn
+                  googleNicknameAlertFunction={() => {this.setState({nicknameAlert: true })}}
+                  userUid={this.state.userId}
+                  updateNickname={(nickname) => { this.setState({ name: nickname }) }}
+                  userEmail={this.state.userEmail}
+                  languages={this.state.languagesList}
+                />
+              }
+
+              {/*======================
+               ALERTS SECTION ENDS
+               ======================= */}
+              
+
+              {/* If the user is signed in then render the chatPage component if not then render the sign in/ log in options */}
               
               {this.state.signedIn
                 ?
-                <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible}/>
+
+                // Chat page component
+
+                <ChatPage userId={this.state.userId} name={this.state.name} language={this.state.language} friendsVisible={this.state.friendsVisible} />
+                
                 :
+
+                // Sign in/ log in component
+
                 <div className="options">
 
-                  {this.state.verifyAlert
-                    ?
-                    <AlertMessage title="An email has been sent to you!" functionToClose={() => { window.location.reload() }}message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!" originalLabel="Ok" aditionalButton={false} aditionalFunction={()=>{firebase.auth().currentUser.sendEmailVerification()}} aditionallabel="Resend email" />
-                    :
-                    ""
-                  }
-
-
-                  {this.state.signInAlert
-                    ?
-                    <AlertMessage title="Oops! there was a problem!" functionToClose={()=>{this.setState({signInAlert:false})}} message="You have entered an incorrect email or password!" aditionalButton={false} originalLabel="Ok" />
-                    :
-                    ""
-                  }
+                  {/* Buttons to select the log in/ sign in option */}
 
                   <div className="optionsButtons">
+
                     <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signIn" className={this.state.optionSelected === "signIn" ? "" : "inactive"} disabled={this.state.optionSelected === "signIn" ? true : false}>Sign In</button>
+
                     <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="signUp" className={this.state.optionSelected === "signUp" ? "" : "inactive"} disabled={this.state.optionSelected === "signUp" ? true : false}>Sign Up</button>
+
                     <button onClick={(e) => this.setState({ optionSelected: e.target.value })} value="guestSignIn" className={this.state.optionSelected === "guestSignIn" ? "" : "inactive"} disabled={this.state.optionSelected === "guestSignIn" ? true : false}>Guest Sign In</button>
+
                   </div>
 
-                  {this.state.optionSelected === "signIn"
-                    ?
-                    <SignInPage userIsNewFunction={(trueOrFalse) => { this.setState({ userIsNew: trueOrFalse }) }}  languages={this.state.languagesList} getLanguage={this.getLanguage} signInAlert={()=>{this.setState({
-                      signInAlert:true
-                    })}} />
-                    :
-                    this.state.optionSelected === "signUp"
-                      ?
-                      <SignUp function={this.getLanguage} languages={this.state.languagesList} signUpAlert={() => {
-                        this.setState({
-                          nicknameAlert: true
-                        })
-                      }}/>
-                      :
-                      <GuestSignUp languages={this.state.languagesList} />
+                  {/* Render the component depending on the log in/ sign in option selected by the user */}
 
+                  {this.state.optionSelected === "signIn"
+                    
+                    ?
+
+                    <SignInPage userIsNewFunction={(trueOrFalse) => { this.setState({ userIsNew: trueOrFalse }) }}  languages={this.state.languagesList} getLanguage={this.getLanguage} signInAlert={()=>{this.setState({signInAlert:true})}} />
+                    
+                    :
+
+                    this.state.optionSelected === "signUp"
+                      
+                      ?
+
+                      <SignUp function={this.getLanguage} languages={this.state.languagesList} signUpAlert={() => {
+                        this.setState({nicknameAlert: true})}}/>
+                        
+                      :
+
+                      <GuestSignUp languages={this.state.languagesList} />
                   }
 
                 </div>
               }
+
+              {/* If the settingsStatus is true and the user is signed in then show the settings */}
                     
-              {this.state.settingsStatus && this.state.signedIn
-                ?
-                <SettingsPage userUid={this.state.userId} languages={this.state.languagesList} currentLanguage={this.state.language} closeSettings={() => {
-                  this.setState({ settingsStatus: !this.state.settingsStatus })
-                }}/>
-                :
-                ""
+              {this.state.settingsStatus
+                
+                &&
+
+                <SettingsPage
+                  userUid={this.state.userId}
+                  languages={this.state.languagesList}
+                  currentLanguage={this.state.language}
+                  closeSettings={() => { this.setState({ settingsStatus: !this.state.settingsStatus })}}
+                />
               }
+
             </div>
 
           </div>

@@ -5,10 +5,14 @@ import noImage from "./noImage.png";
 
 function FriendSelector(props) {
 
+    // Function passed by props to get the selected conversation and then display it on the page
+
     const setName = function(event){
         props.function(event.currentTarget.value, event.currentTarget.id);
     }
 
+
+    // Rendering the component
 
     return (
         <li className="friendButton">

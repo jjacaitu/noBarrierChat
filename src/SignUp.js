@@ -25,19 +25,20 @@ class SignUp extends Component{
         })
     }
 
-    
+    // Method to create a new user
 
     createUser = (event) => {
         event.preventDefault();
 
         const functionToCallAlert = this.props.signUpAlert;
         const nickname = this.state.name;
-        const nicknameFirstFiveLetters = nickname.toLowerCase().substring(0, 5);;
+        const nicknameFirstFiveLetters = nickname.toLowerCase().substring(0, 5);
+
+        // Checking if the user is trying to use a nickname with the word guest in order to trigger an error
 
         if (nicknameFirstFiveLetters === "guest") {
             functionToCallAlert();
         } else {
-            
             
             const databaseRef = firebase.database().ref();
     
@@ -61,6 +62,8 @@ class SignUp extends Component{
                     const existingNicknames = values.map((item) => {
                         return item.val()
                     });
+
+                    // If the nickname the user is trying to use already exists then trigger the Alert
     
                     if (existingNicknames.includes(nickname)) {
     
@@ -68,7 +71,7 @@ class SignUp extends Component{
                         
                     } else {
                         
-                        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((result) => {
+                        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((result)=>{
                 
                             const data = {
                                 
@@ -86,34 +89,21 @@ class SignUp extends Component{
                             result.user.sendEmailVerification().then(function () {
                                 // Email sent.
                                 
-                            }).catch(function (error) {
-                                // An error happened.
-                                console.log(error);
-                            });
+                            })
                 
                             // update the profile with the nickname selected
                 
                             result.user.updateProfile({
                                 displayName: this.state.name,
                             })
-                
-                            
-                
-                
-                        }).catch(function (error) {
-                            // Handle Errors here.
-                            
-                            const errorMessage = error.message;
-                            console.log(errorMessage);
-                            // ...
-                        });
+                        })
                     }
                 })
             })
         }
-
-    
     }
+
+    // Method to handle changes on the inputs
 
     handleChange = (event) => {
         this.setState({
@@ -121,10 +111,8 @@ class SignUp extends Component{
         })
     }
 
-
     render() {
         return (
-
             <form className="signUp" action="" onSubmit={this.createUser}>
                 <h2>Sign up</h2>
                 <label htmlFor="name">Enter nickname</label>

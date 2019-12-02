@@ -13,24 +13,13 @@ class GoogleSignIn extends Component {
         }
     }
 
-    componentDidMount() {
-
-        // const user = firebase.auth().currentUser;
-
-    
-
-        // user.updateProfile({
-        //     displayName: "",
-        // });
-    }
-
-
     setupNicknameAndLanguage = (event) => {
         event.preventDefault();
-        console.log(this.props.googleNicknameAlertFunction);
+        
         const functionToCallAlert = this.props.googleNicknameAlertFunction;
         const nickname = this.state.nickname;
-        const nicknameFirstFiveLetters = nickname.toLowerCase().substring(0, 5);;
+        const nicknameFirstFiveLetters = nickname.toLowerCase().substring(0, 5);
+        
         const language = this.state.language;
 
         const user = firebase.auth().currentUser;

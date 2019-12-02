@@ -14,6 +14,7 @@ class GiphSearch extends Component{
         }
     }
 
+    // When the component gets mounted then make an api call to get 6 random top gifs from GIPHY
 
     componentDidMount() {
         axios({
@@ -26,19 +27,25 @@ class GiphSearch extends Component{
                 
             }
         }).then((gifs) => {
+            // Get a random number between 0 and 19 because the api call return an array with 25 results and te idea is to get 6 random gifs 
             const randomNumber = Math.floor(Math.random() * 19);
-            const resultsToReturn = gifs.data.data.slice(randomNumber,randomNumber + 6);
+            const resultsToReturn = gifs.data.data.slice(randomNumber, randomNumber + 6);
+            
+            // set state and re render to show those gifs
+
             this.setState({
                 gifsArray:resultsToReturn
             })
 
-        }).catch((e) => {
-            console.log("error")
         })
     }
 
+    // Method to search for gifs based on words. It will get the input of the user and make an api call to get 6 gifs related to that word
+
     search = (e) => {
         e.preventDefault();
+
+        // making api call
 
         axios({
             url: `//api.giphy.com/v1/gifs/search`,
@@ -55,15 +62,17 @@ class GiphSearch extends Component{
                 gifsArray: resultsToReturn
             })
 
-        }).catch((e) => {
-            console.log("error")
         })
     }
+
+    // Method to store the gif in the database in the conversation of both users
 
     sendGif= (e) => {
         const gifUrl = e.currentTarget.value;
         const altTag = e.currentTarget.id;
     
+        // Getting the reference for the sender
+
         let dbRef = firebase.database().ref(`${this.props.sender}/chats/${this.props.reciever}/messages`);
 
         let message = {
@@ -73,7 +82,12 @@ class GiphSearch extends Component{
             "format": "gif",
             "altTag" : altTag
         }
+
+        // Updating the database
+
         dbRef.push(message);
+
+        // Getting the reference for the reciever
 
         dbRef = firebase.database().ref(`${this.props.reciever}/chats/${this.props.sender}/messages`);
 
@@ -84,28 +98,31 @@ class GiphSearch extends Component{
             "format": "gif",
             "altTag" : altTag
         }
+
+        // Updating the database
+
         dbRef.push(message);
+
+        // Run the function to close the container that has the gifs that were found
 
         this.props.closeGiphy();
     }
 
+
+    // Render the page
 
     render() {
         return (
             <div className="gifSearch">
                 <form action="" onSubmit={this.search}>
                     <label htmlFor="gifSearchInput">Search in GIPHY: </label>
-                    <input type="text" id="gifSearchInput" value={this.state.query} onChange={(e) => {
-                        this.setState({
-                            query: e.target.value
-                        })
-                    }}
-                     />
+                    <input type="text" id="gifSearchInput" value={this.state.query} onChange={(e) => {this.setState({query: e.target.value})}}/>
                     <SubmitButton label="Search"/>
-                    
-
                 </form>
                 <div>
+
+                    {/* Create a button for every gif found */}
+
                     {this.state.gifsArray.map((gif, index) => {
                         return (
                             <button key={index} className="gif" value={gif.images.downsized.url} id={gif.title} onClick={this.sendGif}>
@@ -115,8 +132,6 @@ class GiphSearch extends Component{
                     })}
 
                 </div>
-                
-
             </div>
         )
     }

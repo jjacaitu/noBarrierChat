@@ -17,6 +17,8 @@ class SignInPage extends Component{
             google: false,
         }
     }
+
+    // Method that will handle all the changes in the inputs
     
     handleChange = (event) => {
         
@@ -25,22 +27,34 @@ class SignInPage extends Component{
         })
     }
 
-    
+    // Method when the user submits theform with the sign in information
     
     signIn = (event) => {
 
         event.preventDefault();
 
+        // Storing the function from the props that will trigger the alert in case of an error
+
         const functionToCall = this.props.signInAlert;
+
+        // Firebase method to sign in
+
+        const email = this.state.email;
+
+        const password = this.state.password;
         
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((result) => {
+        firebase.auth().signInWithEmailAndPassword(email,password ).then((result) => {
             const userUid = result.user.uid;
+
+            // Getting the language of the user that is signed in from the database
+
             firebase.database().ref(`${userUid}/settings/language`).once("value").then((snapshot) => {
                 this.props.getLanguage(snapshot.val());
             })
             
             
         }).catch(function (error) {
+
             // In case of an error we call the function that will change the state in the parent to show the alert.
             
             functionToCall();
@@ -49,9 +63,9 @@ class SignInPage extends Component{
         });
     }
 
-    recoverPassword = (event) => {
+    // Method to send an email to the user in case the user forgets the password
 
-        
+    recoverPassword = (event) => {
 
         event.preventDefault();
         firebase.auth().sendPasswordResetEmail(this.state.emailToRecover).then( () => {
@@ -63,24 +77,27 @@ class SignInPage extends Component{
 
     }
 
+    // Method to sign in with google account
+
     googleSignIn = () => {
 
         const functionToGetUserIsNew = this.props.userIsNewFunction;
         const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
 
-            // The signed-in user info.
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            
+            // The signed-in user info so that the app can know if the user is new and ask for the rest of the settings later.
+
             const isUserNew = result.additionalUserInfo.isNewUser;
             
-
             functionToGetUserIsNew(isUserNew);
             
         })
     }
 
     
-    
+    // Render the component
+
     render() {
         
         return (
@@ -99,24 +116,18 @@ class SignInPage extends Component{
 
                 <button onClick={() => { this.setState({ forgetPassword: !this.state.forgetPassword }) }}>Forgot your password?</button>
 
-                
-                
                 {this.state.forgetPassword
-                    ?
+                    &&
                     <form className="recoverPassword" action="" onSubmit={this.recoverPassword}>
                         <label htmlFor="emailToRecover">Enter your email:</label>
                         <input type="email" id="emailToRecover" onChange={this.handleChange} required />
                         <SubmitButton label="Recover password" />
                     </form>
-                    :
-                    ""
                 }
 
                 {this.state.emailSent
-                    ?
+                    &&
                     <p>An email has been sent with the instructions to recover your password.</p>
-                    :
-                    ""
                 }
                 
             </div>

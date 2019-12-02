@@ -20,92 +20,72 @@ class GuestSignUp extends Component {
     signInGuest = (event) => {
         event.preventDefault();
 
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-            .then(() => {
-                // Existing and future Auth states are now persisted in the current
-                // session only. Closing the window would clear any existing state even
-                // if a user forgets to sign out.
-                // ...
-                // New sign-in will be persisted with session persistence.
-                return firebase.auth().signInAnonymously().then((data) => {
-                    
-                    const userId = data.user.uid;
+        // These makes the guest users log out if the page is refreshed
 
-                    const guestNumberData = firebase.database().ref("/generalConfig");
-                    guestNumberData.once("value").then((value) => {
-                        this.setState({
-                            
-                            userId: userId,
-                         
-                        })
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE).then(() => {
+                
+            // Sign in the user anonimously
 
-                        console.log(value.val().guestNumber);
-                  
+            return firebase.auth().signInAnonymously().then((data) => {
                         
-                        const data = {
+                const userId = data.user.uid;
+                
+                // Getting the current guest number to use it as the nickname
 
-                            "chats": false,
-                            "settings": {
-                                "language": this.state.language,
-                                "nickname": `guest${value.val().guestNumber}`,
-                                "email": null,
-                                "isGuest": true
-                            }
+                const guestNumberData = firebase.database().ref("/generalConfig");
 
+                guestNumberData.once("value").then((value) => {
+                    this.setState({
+                            
+                        userId: userId,
+                        
+                    })               
+                        
+                    // making the data object to use it later to update the databse of that guest
+
+                    const data = {
+
+                        "chats": false,
+                        "settings": {
+                            "language": this.state.language,
+                            "nickname": `guest${value.val().guestNumber}`,
+                            "email": null,
+                            "isGuest": true
                         }
 
-                        firebase.database().ref(`${userId}`).update(data);
+                    }
 
-                        
+                    // Updating the database
 
-                    })
+                    firebase.database().ref(`${userId}`).update(data);
 
-                }).catch(function (error) {
-                    // Handle Errors here.
-                    
-                    const errorMessage = error.message;
-                    console.log(errorMessage);
-                    // ...
-                });
+                })
             })
-            .catch(function (error) {
-                // Handle Errors here.
-                
-            });
-
-
-        
-
-       
-    }
-
-    handleChange = (event) => {
-        this.setState({
-            [event.target.id]: event.target.value
         })
+            
     }
 
+    // Method to get the selected language from the language selector
 
     getLanguage = (event) => {
-        console.log(event.target.value);
         this.setState({
             language: event.target.value
         })
     }
 
+    // Rendering the component
+
     render() {
         return (
-
             <form className="guestSignIn" action="" onSubmit={this.signInGuest}>
                 <h2>Sign up as Guest</h2>
                 <p>Signing in as a guest means you won't be able to select your nickname and will only be able to  get access to your conversations while logged in. If your refresh the page you will automatically logged out.</p>
                 <p>When you log In you will recieve your guest name, use this to connect with other users. </p>
                 <LanguageSelector languages={this.props.languages} function={this.getLanguage} />
                 <SubmitButton label="Sign in" />
-                
             </form>
         )
-    };
+    }
 
 }
 
