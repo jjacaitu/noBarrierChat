@@ -92,7 +92,7 @@ class GiphSearch extends Component{
         return (
             <div className="gifSearch">
                 <form action="" onSubmit={this.search}>
-                    <label htmlFor="gifSearchInput">Search Gif: </label>
+                    <label htmlFor="gifSearchInput">Search in GIPHY: </label>
                     <input type="text" id="gifSearchInput" value={this.state.query} onChange={(e) => {
                         this.setState({
                             query: e.target.value

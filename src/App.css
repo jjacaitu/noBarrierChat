@@ -611,13 +611,13 @@ textarea:disabled {
 }
 
 .sent {
-align-self: end;
+align-self: flex-end;
 background-color: rgb(177, 231, 177);
 
 }
 
 .recieved {
-  align-self: start;
+  align-self: flex-start;
   background-color: rgb(141, 174, 218);
  
 }
@@ -826,6 +826,7 @@ footer {
     padding: 10px 0;
     margin-right: 10px;
     min-width: 120px;
+    z-index: 3;
   }
 
   .friendButton img {
@@ -881,15 +882,6 @@ footer {
     max-width: 90%;
   }
 
-  /* Had to use floats in order to make them go to the right or left on mobile */
-
-  .sent{
-    float: right;
-  }
-
-  .recieved {
-    float: left;
-  }
 
 
   .chatFormDiv {
