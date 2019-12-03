@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './index.css';
 import firebase from "./firebase";
 import axios from "axios";
 import ChatPage from "./ChatPage";
