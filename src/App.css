@@ -874,7 +874,7 @@ footer {
 
   .friendButton {
     flex-direction: column;
-    max-width: calc(100% / 2 - 40px);
+    max-width: calc(100% / 2);
     margin-right: 10px;
     min-width: 80px;
     z-index: 3;
@@ -885,9 +885,14 @@ footer {
     font-size: 0.8rem;
   }
 
+  .friendButton button {
+    width: 100%;
+  }
+
   .friendButton img {
     width: 100%;
     max-width: 60px;
+    margin: 5px;
   }
 
   .chatForm {
