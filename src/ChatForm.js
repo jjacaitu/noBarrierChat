@@ -51,7 +51,8 @@ class ChatForm extends Component {
                 {/* Form for the text messages that the user inputs */}
 
                 <form className="chatForm" action="" onSubmit={this.handleSubmit}>
-                    <textarea name="" id="" cols="30" rows="10" value={this.state.text} onChange={(e)=>{this.setState({text:e.target.value})}} disabled={this.props.reciever ? false : true} placeholder={this.props.reciever ? "Enter text to send" : "Please first select a chat"} required></textarea>
+                    <label htmlFor="message"  className="visuallyHidden">Enter the text you want to send:</label>
+                    <textarea name="message" id="message" cols="30" rows="10" value={this.state.text} onChange={(e)=>{this.setState({text:e.target.value})}} disabled={this.props.reciever ? false : true} placeholder={this.props.reciever ? "Enter text to send" : "Please first select a chat"} required></textarea>
                     <SubmitButton disabled={this.props.reciever ? false : true} label="Send"/>
                 </form>
                 
