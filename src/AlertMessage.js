@@ -4,7 +4,7 @@ function AlertMessage(props) {
     
     return(
         <div className="alert">
-            <h4>{props.title}</h4>
+            <h3>{props.title}</h3>
             <p>{props.message}</p>
             <div>
                 <button onClick={() => { props.functionToClose() }}>{props.originalLabel}</button>

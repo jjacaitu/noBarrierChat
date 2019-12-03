@@ -154,7 +154,7 @@ h2 {
 }
 
 
-h3, h4 {
+h3{
   color:#f9f7f7;
   text-shadow: 2px 2px #112d4e;
   text-transform: uppercase;
@@ -682,6 +682,10 @@ background-color: rgb(177, 231, 177);
   color: #f9f7f7;
   padding: 50px 30px;
   text-align: center;
+}
+
+.alert h3 {
+  padding-bottom: 10px;
 }
 
 
