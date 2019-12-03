@@ -78,7 +78,8 @@ class App extends Component {
 
       }else if (user && !user.emailVerified && user.email) {
         this.setState({
-          verifyAlert: true
+          verifyAlert: true,
+          isLoading: false
         })
 
         // If the user has logged in and is anonymous (guest sign in) then give the user a number by checking in the databse de last guest user number and update the database with the guest number.
@@ -226,7 +227,7 @@ class App extends Component {
                   originalLabel="Ok"
                   aditionalButton={true}
                   aditionalFunction={() => { firebase.auth().currentUser.sendEmailVerification() }}
-                  aditionallabel="Resend email"
+                  aditionalLabel="Resend email"
                 />
     
               }
