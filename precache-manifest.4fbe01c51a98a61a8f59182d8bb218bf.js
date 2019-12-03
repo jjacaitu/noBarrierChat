@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e3baa8c5866293d7735d35587561abd9",
+    "revision": "bbe9f06ee3d4f68f4bbabe4a689cb250",
     "url": "/noBarrierChat/index.html"
   },
   {
-    "revision": "5cd9ea883098a28b393e",
+    "revision": "efb34718a6f166527c20",
     "url": "/noBarrierChat/static/css/main.e94f8e56.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/noBarrierChat/static/js/2.ea6b0572.chunk.js"
   },
   {
-    "revision": "5cd9ea883098a28b393e",
-    "url": "/noBarrierChat/static/js/main.a8091d0d.chunk.js"
+    "revision": "efb34718a6f166527c20",
+    "url": "/noBarrierChat/static/js/main.06122c6b.chunk.js"
   },
   {
     "revision": "1c0361805bbf3aab7de8",
