@@ -874,8 +874,7 @@ footer {
 
   .friendButton {
     flex-direction: column;
-    max-width: calc(100% / 2 - 10px);
-    padding: 10px 0;
+    max-width: calc(100% / 2 - 40px);
     margin-right: 10px;
     min-width: 80px;
     z-index: 3;
