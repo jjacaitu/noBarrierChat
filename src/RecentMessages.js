@@ -7,9 +7,9 @@ function RecentMessages(props) {
         <div id="recentMessages" className="recentMessagesDiv">
             <div className="chatHeader">
 
-                {/* If the user has an image (coming soon!) then show the image, if not show the placeholder */}
+                {/* If the user has an openned chat show the placeholder image */}
 
-                {props.chattingWith && <img src={noImage} alt="" />}
+                {props.chattingWith && <img src={noImage} alt="Placeholder image of a user" />}
 
                 {/* If the user is chatting with somone or has an opened conversation then show the other users name if not then show a message telling the user to select a conversation */}
                     
