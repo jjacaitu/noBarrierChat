@@ -13,12 +13,17 @@ class GuestSignUp extends Component {
             password: "",
             name: "",
             language: "en",
-            userId: ""
+            userId: "",
+            isLoading: false
         }
     }
 
     signInGuest = (event) => {
         event.preventDefault();
+
+        // Starts loading screen
+
+        this.setState({isLoading:true})
 
         // These makes the guest users log out if the page is refreshed
 
@@ -60,6 +65,14 @@ class GuestSignUp extends Component {
                     firebase.database().ref(`${userId}`).update(data);
 
                 })
+            }).then(() => {
+
+                // Removes loading screen
+
+                setTimeout(() => {
+                    this.setState({ isLoading: false })
+                }, 2000);
+                
             })
         })
             
@@ -77,13 +90,26 @@ class GuestSignUp extends Component {
 
     render() {
         return (
+            <div>
+
+                {/* Loading spinner while the anonymous user is getting access */}
+
+                {this.state.isLoading
+                    &&
+                    <div className="loadingScreen">
+                        <div className="lds-hourglass"></div>
+                    </div>
+                }
             <form className="guestSignIn" action="" onSubmit={this.signInGuest}>
+                
                 <h2>Sign up as Guest</h2>
-                <p>Signing in as a guest means you won't be able to select your nickname and will only be able to  get access to your conversations while logged in. If your refresh the page you will automatically logged out.</p>
+                <p>Signing in as a guest means you won't be able to select your nickname and will only be able to  get access to your conversations while logged in. If you refresh the page you will automatically log out.</p>
                 <p>When you log In you will recieve your guest name, use this to connect with other users. </p>
                 <LanguageSelector languages={this.props.languages} function={this.getLanguage} />
                 <SubmitButton label="Sign in" />
             </form>
+
+            </div>
         )
     }
 

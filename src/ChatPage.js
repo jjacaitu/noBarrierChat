@@ -92,7 +92,7 @@ class ChatPage extends Component {
 
         const handle = snapshot => {
             
-            const messages = [];
+            let messages = [];
             const messagesData = snapshot.val();
             if(messagesData != null){
                 if (!messagesData.length) {

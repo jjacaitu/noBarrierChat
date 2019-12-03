@@ -119,16 +119,17 @@ class SignInPage extends Component{
                 {this.state.forgetPassword
                     &&
                     <form className="recoverPassword" action="" onSubmit={this.recoverPassword}>
+                        {this.state.emailSent
+                            &&
+                            <p>An email has been sent with the instructions to recover your password.</p>
+                        }
                         <label htmlFor="emailToRecover">Enter your email:</label>
                         <input type="email" id="emailToRecover" onChange={this.handleChange} required />
                         <SubmitButton label="Recover password" />
                     </form>
                 }
 
-                {this.state.emailSent
-                    &&
-                    <p>An email has been sent with the instructions to recover your password.</p>
-                }
+                
                 
             </div>
         )

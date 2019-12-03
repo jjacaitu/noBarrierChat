@@ -96,6 +96,12 @@ class SignUp extends Component{
                             result.user.updateProfile({
                                 displayName: this.state.name,
                             })
+                        }).catch(() => {
+
+                            // In case the email has already been used by another user show an alert
+
+                            functionToCallAlert();
+
                         })
                     }
                 })

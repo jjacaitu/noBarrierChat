@@ -55,8 +55,6 @@ class GoogleSignIn extends Component {
                         return item.val()
                     });
 
-                    console.log(existingNicknames);
-
                     if (existingNicknames.includes(nickname)) {
 
                         functionToCallAlert();

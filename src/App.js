@@ -31,7 +31,8 @@ class App extends Component {
       verifyAlert: false,
       introduction: "",
       nicknameAlert: false,
-      userIsNew: false
+      userIsNew: false,
+      isLoading: true,
     }
   }
 
@@ -55,6 +56,7 @@ class App extends Component {
           signedIn: true,
           email: user.email,
           userId: user.uid,
+          isLoading: false
 
         })
 
@@ -67,7 +69,8 @@ class App extends Component {
           userId: user.uid,
           name: user.displayName,
           email: user.email,
-          language: ""
+          language: "",
+          isLoading: false
         })
 
       
@@ -88,6 +91,7 @@ class App extends Component {
             signedIn: true,
             userId: user.uid,
             email: null,
+            isLoading: false,
             name: `guest${snapshot.val().guestNumber}`
           })
 
@@ -103,7 +107,8 @@ class App extends Component {
         this.setState({
           signedIn: false,
           userId: null,
-          introduction: true
+          introduction: true,
+          isLoading: false
         })
       }
     })
@@ -166,6 +171,14 @@ class App extends Component {
       
       <React.Fragment>
 
+        {this.state.isLoading
+          && 
+          <div className="loadingScreen">
+            <div className="lds-hourglass"></div>
+          </div>
+        }
+        
+
         {/* Rendering the Header component and passing the nickname and signed in status in order to let the component know if the options should show or not and if the buttons should be disabled or not */}
 
         <Header nickname={this.state.name} signedIn={this.state.signedIn} onClickFunction={() => { this.setState({ settingsStatus: !this.state.settingsStatus })}} />
@@ -195,7 +208,7 @@ class App extends Component {
                 <AlertMessage
                   title="Oops! there was a problem!"
                   functionToClose={() => { this.setState({ nicknameAlert: false }) }}
-                  message="The nickname you are trying to register is already in used or is invalid! please try a different nickname"
+                  message="The nickname you are trying to register is already in used or the email you are trying to use has already been used by another user!"
                   aditionalButton={false}
                   originalLabel="Ok"
                 />

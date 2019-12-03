@@ -16,7 +16,7 @@ function RecentMessages(props) {
                 {props.chattingWith ? <h3>{props.chattingWith}</h3> : <h3>Please select a conversation from the list on the left!</h3>}
 
             </div>
-            <ul className="recentMessages clearfix">
+            <ul className="recentMessages">
 
                 {/* Map through all the messages and render them on the page */}
 

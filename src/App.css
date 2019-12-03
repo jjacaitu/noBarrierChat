@@ -6,6 +6,9 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
+
+/* Setting base font size */
+
 html {
   font-size: 125%;
 }
@@ -15,6 +18,14 @@ body {
   color: #112d4e;
   background-color: #f9f7f7;
 }
+
+.wrapper {
+  max-width: 1400px;
+  width: 85%;
+  margin:0 auto;
+}
+
+/* Stripping defaults */
 
 ul {
   list-style: none;
@@ -50,14 +61,14 @@ button {
   transition: all 0.5s;
 }
 
+/* Header styles */
+
 header {
   
-  /* background-color: rgb(20, 26, 119); */
   background-color: #dbe2ef;
   margin-bottom: 40px;
   padding: 30px 0 0;
   min-height: 7vh;
-  color: white;
   border-bottom: solid 5px #112d4e;
   
 }
@@ -67,7 +78,6 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  
   
 }
 
@@ -88,7 +98,7 @@ button i{
   
 }
 
-
+/* Creating the logo which is the h1 */
 
 h1 {
   font-size: 2rem;
@@ -97,17 +107,13 @@ h1 {
   z-index: 1;
   text-decoration: #112d4e underline;
   background-color: #f9f7f7;
-  /* background-image: linear-gradient(to bottom right, #f9f7f7 , #112d4e ); */
   border-radius: 20px;
   padding: 10px 25px;
   margin-bottom: 30px;
-  
-
   font-family: 'Berkshire Swash', cursive;
-
-
 }
 
+/* After element to make the logo look like a speech bubble */
 h1:after{
   content: "";
   position: absolute;
@@ -120,7 +126,7 @@ h1:after{
   z-index: -1;
 }
 
-
+/* Main styling */
 
 main {
   background-color: #f9f7f7;
@@ -144,7 +150,7 @@ h2 {
 
 
 h3, h4 {
-  color: #dbe2ef;
+  color:#f9f7f7;
   text-shadow: 2px 2px #112d4e;
   text-transform: uppercase;
   padding-left: 10px;
@@ -154,19 +160,6 @@ span {
   color: #ff4343;
 }
 
-em {
-  text-decoration: underline #112d4e;
-}
-
-.wrapper {
-  max-width: 1400px;
-  width: 90%;
-  margin:0 auto;
-}
-
-.App-link {
-  color: #09d3ac;
-}
 
 .introduction {
   
@@ -186,7 +179,7 @@ em {
   padding-bottom: 20px;
 }
 
-/* Auth Options */
+/* Auth Options styling (Sign up/ Log in) */
 
 .options {
   display: flex;
@@ -212,7 +205,6 @@ em {
   background-color: transparent;
   color: #112d4e;
   border: none;
-  /* text-decoration: underline #ff4343; */
   position: relative;
   
 }
@@ -224,26 +216,23 @@ em {
 
 
 
-  .optionsButtons button::after, .signIn button::after, nav button::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 5%;
-    background-color: #ff4343;
-    border-radius: 30px;
-    bottom: 10%;
-    left: 17.5%;
-    z-index: 8;
-    transition: all 0.5s;
-  }
+.optionsButtons button::after, .signIn button::after, nav button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 5%;
+  background-color: #ff4343;
+  border-radius: 30px;
+  bottom: 10%;
+  left: 17.5%;
+  z-index: 8;
+  transition: all 0.5s;
+}
 
-  .optionsButtons button:disabled::after {
-    width: 65%;
-  }
+.optionsButtons button:disabled::after {
+  width: 65%;
+}
 
-  
-
-  
 
 .optionsButtons .inactive {
   opacity: 0.6;
@@ -274,7 +263,6 @@ em {
   min-height: 75vh;
   background-color: #dbe2ef;
   color: white;
-  /* padding-bottom: 50px; */
   border: solid 3px #112d4e;
   border-radius: 20px;
   color: #112d4e;
@@ -329,6 +317,8 @@ span.logo {
   font-size: 1.2rem;
 }
 
+/* List of Active conversations or friends styling */
+
 .listOfFriends {
   display: flex;
   flex-direction: column;
@@ -363,17 +353,14 @@ span.logo {
   width: 80%;
 }
 
-
-
 .friendButton {
   
   display: flex;
   align-items: center;
-  border: solid black 3px;
-  padding: 10px;
+  border: solid #112d4e 3px;
+  padding: 20px;
   background-color: white;
   border-radius: 20px;
-  color: #112d4e;
   flex-wrap: wrap;
   min-width: 80px;
   margin-top: 10px;
@@ -391,7 +378,6 @@ span.logo {
 }
 
 
-
 .friendButton img {
   max-width: 120px;
   width: 50%;
@@ -404,15 +390,14 @@ span.logo {
   padding: 0px;
 }
 
+/* Messages section styling */
+
 .messagesAndTextContainer {
   width:100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   text-align: center;
   align-items: flex-end;
-  
-  
   transition: all 0.5s;
 }
 
@@ -425,7 +410,6 @@ span.logo {
   text-align: center;
   color: #112d4e;
   padding-left: 30px;
-  /* padding-bottom:20px */
 }
 
 .messagesAndTextContainer .message{
@@ -439,8 +423,6 @@ span.logo {
   margin-top: 20px;
   min-width: 420px;
   margin-left: 40px;
-  
-  
 }
 
 .chatHeader {
@@ -452,14 +434,6 @@ span.logo {
   border-radius: 15px 15px 0 0;
   border: #112d4e solid 5px;
 
-}
-
-.chatHeader h2 {
-  padding: 0;
-  padding-left: 10px;
-  color:#f9f7f7;
-  font-size: 1.2rem;
-  
 }
 
 .chatHeader img {
@@ -509,6 +483,8 @@ span.logo {
   
 }
 
+/* Gifs section styling */
+
 .giphyDiv {
   color: #112d4e;
   transition: all 0.5s ease-in-out;
@@ -546,10 +522,8 @@ span.logo {
 }
 
 .gif img {
-  object-fit: cover;
+  padding: 5px;
 }
-
-
 
 textarea {
   height: 70%;
@@ -571,8 +545,6 @@ textarea:disabled {
 .chatForm button {
   width: 25%;
   margin-left: 20px;
-  
-  /* border-radius: 30px; */
 }
 
 .submitButton {
@@ -582,6 +554,7 @@ textarea:disabled {
 }
 
 
+/* Styling for the text depending on if it is a recieved text or a sent text */
 
 .sent, .recieved {
   padding: 10px 20px;
@@ -605,6 +578,7 @@ background-color: rgb(177, 231, 177);
  
 }
 
+/* Making messages appear in bubble speeches */
 .sent:after, .recieved:after{
   content: "";
   position: absolute;
@@ -625,19 +599,14 @@ background-color: rgb(177, 231, 177);
   left: 25px;
 }
 
-.unread {
-  background-color: #ff4343;
-}
-
 .time {
   color: rgb(63, 63, 63);
   font-size: 0.8rem;
   padding-bottom: 0;
   align-items: center;
-  
 }
 
-/* Settings page */
+/* Settings adn Google signin page */
 
 .settingsPage, .googleSignIn {
   position: fixed;
@@ -670,8 +639,6 @@ background-color: rgb(177, 231, 177);
   text-align: center;
 
 }
-
-
 
 .settingsPage form:last-of-type {
     display: flex;
@@ -738,10 +705,10 @@ background-color: rgb(177, 231, 177);
   font-size:2rem;
 }
 
+/* footer */
+
 footer {
   text-align: center;
-  /* background-color: rgb(27, 27, 27); */
-  /* color: #4f5165; */
   background-color: #dbe2ef;
   border-top: solid 1px #112d4e;
   display: flex;
@@ -751,7 +718,57 @@ footer {
 }
 
 
+/* Spinner */
+
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 12;
+}
+
+.lds-hourglass {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  margin: 8px;
+  box-sizing: border-box;
+  border: 32px solid #fff;
+  border-color: #112d4e transparent #ff4343 transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+
+
 /* Keyframes */
+
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
 
 @keyframes appear {
   from {
@@ -772,8 +789,9 @@ footer {
 
 /* media queries */
 
+/* This makes te hover effects available only on devices with hover */
 @media (hover: hover) {
-     header button:enabled:hover i, header button:enabled:focus i{
+     header button:enabled:hover i, header button:enabled:focus i, .signIn button:enabled:hover i, .signIn button:enabled:focus i, .close:hover, .close:focus{
       transform: scale(1.5);
       color: #ff4343;
     }
@@ -824,9 +842,12 @@ footer {
 
   .recentMessagesDiv, .chatFormDiv {
     margin-left: 0;
+    width: 100%;
   }
 
-  
+  textarea {
+    width: 90%;
+  }
 
   .messagesAndTextContainer>div:first-child {
     margin-left: 0;
@@ -834,7 +855,6 @@ footer {
   }
 
   .listOfFriends {
-    
     width: 100%;
     order: 2;
   }
@@ -883,7 +903,7 @@ footer {
   
 }
 
-@media (max-width:500px){
+@media (max-width:550px){
 
   .optionsButtons {
     width: 100%;
@@ -911,7 +931,7 @@ footer {
 
   .recentMessagesDiv, .chatFormDiv{
     width: 100%;
-    min-width: initial;
+    min-width: 200px;
   }
 
   .chatForm {
@@ -935,7 +955,6 @@ footer {
 
   textarea {
     width: 90%;
-    margin-left: 10px;
   }
 
   footer {
@@ -949,5 +968,13 @@ footer {
 
   .gif {
     width: calc(100%/2 - 20px);
+  }
+
+  .wrapper {
+    width: 95%;
+  }
+
+  .addFriendBar input {
+    width: 80%;
   }
 }
