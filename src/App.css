@@ -859,6 +859,10 @@ footer {
     order: 2;
   }
 
+  .listOfFriends ul {
+    width: 100%;
+  }
+
   .addFriendBar input {
     width: 60%;
   }
@@ -875,6 +879,7 @@ footer {
     margin-right: 10px;
     min-width: 80px;
     z-index: 3;
+    flex-grow: 1;
   }
 
   .friendButton p{

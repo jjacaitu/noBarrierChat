@@ -60,8 +60,7 @@ class GoogleSignIn extends Component {
                         functionToCallAlert();
 
                     } else {
-
-                        
+        
                         const data = {
 
                             "chats": false,
@@ -78,8 +77,6 @@ class GoogleSignIn extends Component {
                         user.updateProfile({
                             displayName: nickname,
                         })
-
-                        
 
                         this.setState({
                             nickname:nickname
