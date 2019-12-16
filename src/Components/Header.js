@@ -5,9 +5,8 @@ const signOut = () => {
     firebase.auth().signOut();
 }
 
-
 function Header(props) {
- 
+
 
     return (
         <header>
@@ -21,7 +20,7 @@ function Header(props) {
                         &&
                         <nav>
                             <button onClick={signOut}>Sign Out <i className="fas fa-sign-out-alt" aria-hidden={true}></i></button>
-                            <button disabled={props.nickname ? false : true} onClick={() => { props.onClickFunction()}}>Settings <i className="fas fa-cogs" aria-hidden={true}></i></button>
+                            <button disabled={props.nickname && !props.guest ? false : true} onClick={() => { props.onClickFunction()}}>Settings <i className="fas fa-cogs" aria-hidden={true}></i></button>
                             
                         </nav>
                     }
