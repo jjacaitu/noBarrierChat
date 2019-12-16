@@ -258,7 +258,7 @@ class ChatPage extends Component {
                     </div>
                     <div className="messagesAndTextContainer">
                         <div>
-                            <p>{`Welcome`} <span>{this.props.name}</span>{`!`}</p>
+                            <p>{`Welcome! Your nickname is `} <span>{this.props.name}</span>{"."}</p>
                             <p>This is <span className="logo">interpreter!</span> Text messaging without language barrier!</p>
                         </div>   
                         
