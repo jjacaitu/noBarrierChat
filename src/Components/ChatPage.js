@@ -82,6 +82,21 @@ class ChatPage extends Component {
                     chattingWithUid: null
                 })
             }
+
+            if (openedChats.length && this.state.chattingWithName === null) {
+                this.select(openedChats[0].name, openedChats[0].uid);
+                
+                const recentMessages = document.querySelector(".recentMessages");
+
+                setTimeout(() => {
+                    recentMessages.scrollTo({
+                        top: recentMessages.scrollHeight,
+                        left: 0,
+                        behavior: "smooth"
+                    })
+                    
+                }, 100);
+            }
         })
     }
 
@@ -117,15 +132,17 @@ class ChatPage extends Component {
                 chattingWithName: name,
                 chattingWithUid: uid,
                 language:"",
-            })
+            }, ()=> {
+                // Make the recentMessages div scroll to th bottom when there is a new message in the active conversation
+                const recentMessages = document.querySelector("#recentMessages");
+                setTimeout(() => {
+                    recentMessages.scrollTo({
+                        top: recentMessages.scrollHeight,
+                        left: 0,
+                        behavior: "smooth"
+                    })
 
-            // Make the recentMessages div scroll to th bottom when there is a new message in the active conversation
-
-            const recentMessages = document.querySelector(".recentMessages");
-            recentMessages.scrollTo({
-                top: recentMessages.scrollHeight,
-                left: 0,
-                behavior: "smooth"
+                }, 200);
             })
             
         }
@@ -133,11 +150,17 @@ class ChatPage extends Component {
         const dbRef = firebase.database().ref(`${this.state.userId}/chats/${uid}/messages`);
         dbRef.off("value", handle);
         dbRef.on("value", handle);
-
+        
         // Making the page scroll when the user gets a new message
-
-        document.querySelector("#recentMessages").scrollIntoView({behavior:"smooth"});
-
+        
+        const recentMessages = document.querySelector(".recentMessages");
+        recentMessages.scrollTo({
+            top: recentMessages.scrollHeight,
+            left: 0,
+            behavior: "smooth"
+        })
+        
+        
     }
 
     deleteConversation = () => {

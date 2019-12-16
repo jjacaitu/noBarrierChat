@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import './index.css';
-import firebase from "./firebase";
+import firebase from "./Components/firebase";
 import axios from "axios";
-import ChatPage from "./ChatPage";
-import SignInPage from "./SignInPage";
-import SignUp from './SignUp';
-import GuestSignUp from './GuestSignIn';
-import AlertMessage from "./AlertMessage";
-import Header from "./Header";
-import Footer from "./Footer";
-import SettingsPage from "./SettingsPage";
-import Introduction from "./Introduction";
-import GoogleSignIn from "./GoogleSignIn";
+import ChatPage from "./Components/ChatPage";
+import SignInPage from "./Components/SignInPage";
+import SignUp from './Components/SignUp';
+import GuestSignUp from './Components/GuestSignIn';
+import AlertMessage from "./Components/AlertMessage";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import SettingsPage from "./Components/SettingsPage";
+import Introduction from "./Components/Introduction";
+import GoogleSignIn from "./Components/GoogleSignIn";
 
 
 class App extends Component {
@@ -54,31 +54,22 @@ class App extends Component {
         this.setState({
           name: null,
           signedIn: true,
-          email: user.email,
+          userEmail: user.email,
           userId: user.uid,
           isLoading: false
 
         })
 
-      // If the user has logged in and has a verified email then rerender the page to let the user use the chat
+        // If the user has logged in and has a verified email then rerender the page to let the user use the chat
 
-      }else if (user && user.emailVerified) {
+      } else if (user && user.emailVerified) {
         
         this.setState({
           signedIn: true,
           userId: user.uid,
           name: user.displayName,
-          email: user.email,
+          userEmail: user.email,
           language: "",
-          isLoading: false
-        })
-
-      
-      // If the user has logged in and the user's email hasn't been verified but has an email the show the alert that tells the user he needs to verify the email
-
-      }else if (user && !user.emailVerified && user.email) {
-        this.setState({
-          verifyAlert: true,
           isLoading: false
         })
 
@@ -91,7 +82,7 @@ class App extends Component {
           this.setState({
             signedIn: true,
             userId: user.uid,
-            email: null,
+            userEmail: null,
             isLoading: false,
             name: `guest${snapshot.val().guestNumber}`
           })
@@ -102,7 +93,15 @@ class App extends Component {
           
         });
 
-      // If the user is not logged in then set the signedIn property of the state to false in order to show the sign in/log in pages
+       
+      } else if(user && !user.emailVerified){
+        this.setState({
+          verifyAlert: true,
+          isLoading: false
+        })
+
+       // If the user is not logged in then set the signedIn property of the state to false in order to show the sign in/log in pages
+        
       } else {
         
         this.setState({
@@ -182,7 +181,7 @@ class App extends Component {
 
         {/* Rendering the Header component and passing the nickname and signed in status in order to let the component know if the options should show or not and if the buttons should be disabled or not */}
 
-        <Header nickname={this.state.name} signedIn={this.state.signedIn} onClickFunction={() => { this.setState({ settingsStatus: !this.state.settingsStatus })}} />
+        <Header nickname={this.state.name} guest={this.state.userEmail !== null ? false : true} signedIn={this.state.signedIn} onClickFunction={() => { this.setState({ settingsStatus: !this.state.settingsStatus })}} />
 
         <main>
 
@@ -222,7 +221,7 @@ class App extends Component {
                 &&
                 <AlertMessage
                   title="An email has been sent to you!"
-                  functionToClose={() => { window.location.reload() }}
+                  functionToClose={() => { this.setState({verifyAlert:false}) }}
                   message="Please verify your acount and refresh after! You should have recieved an email with the steps to follow!"
                   originalLabel="Ok"
                   aditionalButton={true}
@@ -297,7 +296,7 @@ class App extends Component {
                     
                     ?
 
-                    <SignInPage userIsNewFunction={(trueOrFalse) => { this.setState({ userIsNew: trueOrFalse }) }}  languages={this.state.languagesList} getLanguage={this.getLanguage} signInAlert={()=>{this.setState({signInAlert:true})}} />
+                    <SignInPage userIsNewFunction={(trueOrFalse) => { this.setState({ userIsNew: trueOrFalse }) }}  languages={this.state.languagesList} getLanguage={this.getLanguage} signInAlert={()=>{this.setState({signInAlert:true})}} emailVerificationAlert ={()=>{this.setState({verifyAlert:true})}} />
                     
                     :
 
@@ -306,7 +305,8 @@ class App extends Component {
                       ?
 
                       <SignUp function={this.getLanguage} languages={this.state.languagesList} signUpAlert={() => {
-                        this.setState({nicknameAlert: true})}}/>
+                        this.setState({ nicknameAlert: true })
+                      }} emailVerificationAlert={()=>{this.setState({verifyAlert: true})}}/>
                         
                       :
 

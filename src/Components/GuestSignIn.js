@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SubmitButton from "./SubmitButton";
 import firebase from "firebase";
-import LanguageSelector from "./LanguageSelector"
+import LanguageSelector from "./LanguageSelector";
+import translate from "./translate";
 
 
 class GuestSignUp extends Component {
@@ -50,7 +51,12 @@ class GuestSignUp extends Component {
 
                     const data = {
 
-                        "chats": false,
+                        "chats": {
+                            "INTERPRETER": {
+                                "nickname": "Interpreter",
+                                "messages": "",
+                            }
+                        },
                         "settings": {
                             "language": this.state.language,
                             "nickname": `guest${value.val().guestNumber}`,
@@ -62,7 +68,31 @@ class GuestSignUp extends Component {
 
                     // Updating the database
 
-                    firebase.database().ref(`${userId}`).update(data);
+                    firebase.database().ref(`${userId}`).update(data).then(() => {
+                        setTimeout(() => {
+                            translate("Hi there!","INTERPRETER",userId,"Interpreter")
+                        }, 2000);
+
+                        setTimeout(() => {
+                            translate("Welcome! Glad you are here!", "INTERPRETER", userId, "Interpreter")
+                        }, 4000);
+
+                        setTimeout(() => {
+                            const message = {
+                                "message": "https://media3.giphy.com/media/vFKqnCdLPNOKc/giphy.gif?cid=d6364ed3d367323520c3529aa84c5eabeb02b8c6d9206e94&rid=giphy.gif",
+                                "type": "recieved",
+                                "time": Date(Date.now().toString()).split(" GMT").splice(0, 1),
+                                "format": "gif",
+                                "altTag": "white cat hello GIF",
+                            }
+                            firebase.database().ref(`${userId}/chats/INTERPRETER/messages`).push(message);
+                        }, 6000);
+
+                        setTimeout(() => {
+                            translate("Please add a friend using their nickname to start a conversation and enjoy chatting without worrying about language barriers", "INTERPRETER", userId, "Interpreter")
+                        }, 8000);
+
+                    });
 
                 })
             }).then(() => {

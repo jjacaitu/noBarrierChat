@@ -1,5 +1,5 @@
 import React from "react";
-import noImage from "./noImage.png"
+import noImage from "../noImage.png"
 
 
 function RecentMessages(props) {

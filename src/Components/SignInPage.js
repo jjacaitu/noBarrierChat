@@ -46,6 +46,13 @@ class SignInPage extends Component{
         firebase.auth().signInWithEmailAndPassword(email,password ).then((result) => {
             const userUid = result.user.uid;
 
+            
+            // If the user has logged in and the user's email hasn't been verified but has an email the show the alert that tells the user he needs to verify the email
+            
+            if (!result.user.emailVerified) {
+                this.props.emailVerificationAlert();
+            }
+            
             // Getting the language of the user that is signed in from the database
 
             firebase.database().ref(`${userUid}/settings/language`).once("value").then((snapshot) => {
