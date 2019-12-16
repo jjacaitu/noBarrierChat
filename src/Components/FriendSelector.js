@@ -25,7 +25,7 @@ function FriendSelector(props) {
             } 
                 <p>{props.name}</p>
             </button>
-            <button className="deleteButton" onClick={props.deleteFunction} value={props.index}><i className="fas fa-trash-alt"></i></button>
+            <button className="deleteButton" onClick={props.deleteFunction} value={props.index}><i className="fas fa-trash-alt" ariaLabel="Delete conversation"></i></button>
             
         </li>
     )
