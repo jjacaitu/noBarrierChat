@@ -13,7 +13,7 @@ function RecentMessages(props) {
 
                 {/* If the user is chatting with somone or has an opened conversation then show the other users name if not then show a message telling the user to select a conversation */}
                     
-                {props.chattingWith ? <h3>{props.chattingWith}</h3> : <h3>Please select a conversation from the list on the left!</h3>}
+                {props.chattingWith ? <h3>{props.chattingWith}</h3> : <h3>Please add a friend in order to start a conversation!</h3>}
 
             </div>
             <ul className="recentMessages">
