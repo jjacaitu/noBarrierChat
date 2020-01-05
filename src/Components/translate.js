@@ -1,8 +1,6 @@
 import axios from "axios";
 import firebase from "firebase";
 
-const translatorApiKey = "trnsl.1.1.20191120T174117Z.30abf07a083257c3.606e1a38fc565562205063e541cb970657ab2600";
-
 // Function that takes a text, translates it to the selected language and dtore the text on the databse of the reciever user
 
 function translate(text,sender,reciever,nickname) {
@@ -16,7 +14,7 @@ function translate(text,sender,reciever,nickname) {
             url: "https://translate.yandex.net/api/v1.5/tr.json/translate",
             responseType: "json",
             params: {
-                key: translatorApiKey,
+                key: process.env.REACT_APP_API_KEY,
                 text: text,
                 format: "plain",
                 lang: language,

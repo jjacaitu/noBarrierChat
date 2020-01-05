@@ -23,7 +23,7 @@ class GiphSearch extends Component{
             responseType: `json`,
             method: `get`,
             params: {
-                api_key: "5o3FJkFysfmiqM09a9Z3ifEWL0HqHhLB",
+                api_key: process.env.REACT_APP_GIPHY_API_KEY,
                 
             }
         }).then((gifs) => {
@@ -52,7 +52,7 @@ class GiphSearch extends Component{
             responseType: `json`,
             method: `get`,
             params: {
-                api_key: "5o3FJkFysfmiqM09a9Z3ifEWL0HqHhLB",
+                api_key: process.env.REACT_APP_GIPHY_API_KEY,
                 q: this.state.query
             }
         }).then((gifs) => {
